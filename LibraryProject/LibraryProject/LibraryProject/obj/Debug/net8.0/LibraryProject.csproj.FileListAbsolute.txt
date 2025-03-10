@@ -1,0 +1,14 @@
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\bin\Debug\net8.0\LibraryProject.exe
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\bin\Debug\net8.0\LibraryProject.deps.json
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\bin\Debug\net8.0\LibraryProject.runtimeconfig.json
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\bin\Debug\net8.0\LibraryProject.dll
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\bin\Debug\net8.0\LibraryProject.pdb
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\obj\Debug\net8.0\LibraryProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\obj\Debug\net8.0\LibraryProject.AssemblyInfoInputs.cache
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\obj\Debug\net8.0\LibraryProject.AssemblyInfo.cs
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\obj\Debug\net8.0\LibraryProject.csproj.CoreCompileInputs.cache
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\obj\Debug\net8.0\LibraryProject.dll
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\obj\Debug\net8.0\refint\LibraryProject.dll
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\obj\Debug\net8.0\LibraryProject.pdb
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\obj\Debug\net8.0\LibraryProject.genruntimeconfig.cache
+C:\Users\Student3\Desktop\Practice\LibraryProject\LibraryProject\obj\Debug\net8.0\ref\LibraryProject.dll
