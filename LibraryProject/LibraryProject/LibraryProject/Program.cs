@@ -69,9 +69,6 @@ namespace LibraryProject
                                     }
                                     string[] booksInfo = inputBooks!.Split(", ", StringSplitOptions.RemoveEmptyEntries).ToArray();
                                     string title = booksInfo[0];
-                                    //string author = booksInfo[1];
-                                    //string genre = booksInfo[2];
-                                    //int copiesAvailableCount = int.Parse(booksInfo[3]);
                                     Book book = books.FirstOrDefault(b => b.Title == title);
                                     if (book is null)
                                     {
@@ -84,9 +81,12 @@ namespace LibraryProject
                                             "Try to check the next week!");
                                         break;
                                     }
-                                    reader.BorrowedBooks.Add(book);
-                                    Console.WriteLine("The book is added to the reader successfully.");
-                                    inputBooks = Console.ReadLine()!;
+                                     book.CopiesAvailableCount--;
+                                     book.BorrowTimesCount++;
+                                     reader.BorrowedBooks.Add(book);
+                                     Borrow borrow = new Borrow(reader, book, DateTime.Now);
+                                     borrows.Add(borrow);
+                                     Console.WriteLine($"{book.Title} borrowed successfully!");
                                 }
                                 readers.Add(reader);
                                 Console.WriteLine("Reader added successfully!");
@@ -150,9 +150,9 @@ namespace LibraryProject
                         Console.WriteLine("2. Get every reader");
                         Console.WriteLine("3. Get books with readers");
                         Console.WriteLine("4. Get readers with active borrows");
-                        Console.WriteLine("5. ");
-                        Console.WriteLine("6. ");
-                        Console.WriteLine("7. ");
+                        Console.WriteLine("5. Get the available books");
+                        Console.WriteLine("6. Get late returnings");
+                        Console.WriteLine("7. Get top 3 of the most borrowed books");
                         string queryToExecute = Console.ReadLine();
                         while (true)
                         {
@@ -208,9 +208,10 @@ namespace LibraryProject
                                 break;
                                 case 6:
                                     Console.WriteLine("Late returnings:");
-                                    foreach (var borrow in borrows.Where(br => br.ReturningDate < DateTime.Now && br.ReturningDate == null))
+                                    foreach (var borrow in borrows.Where(br => br.ReturningDate!.Value >
+                                        br.ReturningDate.Value.AddDays(30)))
                                     {
-                                        Console.WriteLine($"Reader: {borrow.Reader.Name} (ID: {borrow.Reader.Id}) - Book: {borrow.Book.Title} (Due: {borrow.DueDate:dd-MM-yyyy})");
+                                        Console.WriteLine($"Reader: {borrow.Reader.Name} (ID: {borrow.Reader.Id}) - Book: {borrow.Book.Title} (Due: {borrow.ReturningDate:dd-MM-yyyy})");
                                     }
                                     break;
                                 case 7:
