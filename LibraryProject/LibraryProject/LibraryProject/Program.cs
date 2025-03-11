@@ -6,7 +6,6 @@ namespace LibraryProject
 {
     internal class Program
     {
-        //spravka - report
         static void Main(string[] args)
         {
             List<Book> books = new List<Book>();
