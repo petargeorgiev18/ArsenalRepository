@@ -1,0 +1,9 @@
+04.03.2025 - Tuesday
+The theme of today's lection - Advanced querying
+Studied:
+  - how to execute native SQL Queries
+  - about Object State Tracking
+  - what are bulk operations and how to use them
+  - what are the types of loading (lazy, explicit and eager) and where to use them
+  - what are the concurency checks
+  - how to work with cascade operations and the types of DeleteBehaviour
