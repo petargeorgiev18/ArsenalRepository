@@ -10,7 +10,7 @@ namespace HotelManager.Controllers
 {
     public class HotelController
     {
-        private readonly HotelManagerContext context = new HotelManagerContext();
+        private readonly HotelManagerContext context;
         public HotelController(HotelManagerContext context)
         {
             this.context = context;
