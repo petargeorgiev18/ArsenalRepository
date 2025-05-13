@@ -17,7 +17,7 @@ namespace Luxor.Core.Services.GuestServices
         {
             this.context = context;
         }
-        public async Task<string> SeeAllBookingsByUser(int guestId)
+        public async Task<string> SeeAllBookingsByGuest(int guestId)
         {
             var allBookings = await context.Bookings.Where(b => b.GuestId == guestId).ToListAsync();
             StringBuilder sb = new StringBuilder();
@@ -40,7 +40,7 @@ namespace Luxor.Core.Services.GuestServices
             }
             return sb.ToString();
         }
-        public async Task SeeBookingInfoByGuestId(int guestId, int bookingId)
+        public async Task<string> SeeBookingInfoByGuestId(int guestId, int bookingId)
         {
             var booking = await context.Bookings.FirstOrDefaultAsync(b => b.GuestId == guestId
                     && b.BookingId == bookingId);
@@ -59,15 +59,16 @@ namespace Luxor.Core.Services.GuestServices
             {
                 Console.WriteLine("No booking with this id found for this user.");
             }
+            return sb.ToString();
         }
-        public async Task AddBooking(int guestId, int roomId, DateTime leavingDate,
+        public async Task AddBooking(int guestId, int roomId, DateTime accomodationDate, DateTime leavingDate,
             decimal amount, string paymentMethod, Status status)
         {
             var booking = new Booking
             {
                 GuestId = guestId,
                 RoomId = roomId,
-                AccommodationDate = DateTime.UtcNow,
+                AccommodationDate = accomodationDate,
                 LeavingDate = leavingDate,
                 Amount = amount,
                 PaymentDate = leavingDate,
@@ -108,6 +109,29 @@ namespace Luxor.Core.Services.GuestServices
             {
                 Console.WriteLine("No booking with this id found.");
             }
+        }
+        public async Task<string> ShowAllServicesForAnyBookingOfGuest(int guestId)
+        {
+            var booking = await context.Bookings
+                .Include(b => b.BookingServices)
+                .ThenInclude(bs => bs.Service)
+                .FirstOrDefaultAsync(b => b.GuestId == guestId);
+            StringBuilder sb = new StringBuilder();
+            if (booking != null)
+            {
+                sb.AppendLine($"BookingId:{booking.BookingId}");
+                foreach (var bookingService in booking.BookingServices)
+                {
+                    sb.AppendLine($"ServiceId:{bookingService.ServiceId}");
+                    sb.AppendLine($"ServiceName:{bookingService.Service.ServiceName}");
+                    sb.AppendLine($"Price: {bookingService.Service.Price}");
+                }
+            }
+            else
+            {
+                sb.AppendLine("No services found for this booking.");
+            }
+            return sb.ToString();
         }
     }
 }

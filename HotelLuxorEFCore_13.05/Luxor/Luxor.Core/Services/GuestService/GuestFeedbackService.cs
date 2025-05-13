@@ -103,5 +103,29 @@ namespace Luxor.Core.Services.GuestServices
             }
             return sb.ToString();
         }
+        public async Task<string> ShowAllFeedbacksForBookingsForGuest(int guestId)
+        {
+            StringBuilder sb = new StringBuilder();
+            var feedbacks = await context.Feedbacks
+                .Include(f => f.Booking)
+                .Where(f => f.GuestId == guestId)
+                .ToListAsync();
+            if (feedbacks != null)
+            {
+                foreach (var feedback in feedbacks)
+                {
+                    sb.AppendLine($"FeedbackId:{feedback.FeedbackId}");
+                    sb.AppendLine($"Comment:{feedback.Comment}");
+                    sb.AppendLine($"Rating: {feedback.Rating}");
+                    sb.AppendLine($"PublishedOn: {feedback.PublishedOn}");
+                    sb.AppendLine($"BookingId: {feedback.BookingId}");
+                }
+            }
+            else
+            {
+                sb.AppendLine("No feedbacks found for this user.");
+            }
+            return sb.ToString();
+        }
     }
 }
