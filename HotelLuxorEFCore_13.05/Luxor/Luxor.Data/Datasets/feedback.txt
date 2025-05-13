@@ -1,0 +1,6 @@
+Comment,Rating,PublishedOn,BookingId,GuestId
+Great service,5,2025-07-10,1,1
+Room was nice,4,2025-08-12,2,2
+Not as expected,2,2025-09-05,3,3
+Excellent experience,5,2025-09-18,5,1
+Average stay,3,2025-10-10,4,4

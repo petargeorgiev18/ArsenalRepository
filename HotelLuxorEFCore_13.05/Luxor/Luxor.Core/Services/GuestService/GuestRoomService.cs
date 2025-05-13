@@ -1,0 +1,63 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Luxor.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace Luxor.Core.Services.GuestServices
+{
+    public class GuestRoomService
+    {
+        private readonly LuxorDbContext context;
+        public GuestRoomService(LuxorDbContext context)
+        {
+            this.context = context;
+        }
+        public async Task<string> ShowAvailableRooms()
+        {
+            var rooms = context.Rooms
+                .Where(r => r.IsAvailable == true)
+                .ToList();
+            StringBuilder sb = new StringBuilder();
+            Console.WriteLine("Available rooms:");
+            foreach (var room in rooms)
+            {
+                sb.AppendLine($"RoomNumber: {room.RoomNumber}, " +
+                    $"RoomType: {room.RoomType}, Price: {room.Price}");
+            }
+            return sb.ToString();
+        }
+        public void BookRoom()
+        {
+            // Logic to book a room
+        }
+        public void CancelBooking()
+        {
+            // Logic to cancel a booking
+        }
+        public void ViewBookingDetails()
+        {
+            // Logic to view booking details
+        }
+        public void LeaveFeedback()
+        {
+            // Logic to leave feedback
+        }
+        public async Task<string> ShowRoomsByPrice(decimal price)
+        {
+            var rooms = await context.Rooms
+                .Where(r => r.Price == price)
+                .ToListAsync();
+            StringBuilder sb = new StringBuilder();
+            Console.WriteLine($"Rooms with price {price}:");
+            foreach (var room in rooms)
+            {
+                sb.AppendLine($"ID: {room.RoomId}, RoomNumber: {room.RoomNumber}, " +
+                    $"RoomType: {room.RoomType}, Price: {room.Price}");
+            }
+            return sb.ToString();
+        }
+    }
+}

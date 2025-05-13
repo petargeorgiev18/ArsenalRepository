@@ -1,0 +1,6 @@
+AccommodationDate,LeavingDate,Amount,PaymentDate,PaymentMethod,Status,GuestId,RoomId
+2025-07-10;2025-07-13;300,00;2025-07-10;Credit Card;Pending;1;1
+2025-07-12;2025-07-15;450,00;2025-07-12;Debit Card;Reserved;2;2
+2025-08-01;2025-08-05;500,00;2025-08-01;Cash;Deposit;3;3
+2025-08-10;2025-08-14;600,00;2025-08-10;Credit Card;Paid;4;4
+2025-09-01;2025-09-03;200,00;2025-09-01;PayPal;Cancelled;5;5

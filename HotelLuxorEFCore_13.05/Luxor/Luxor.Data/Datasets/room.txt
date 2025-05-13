@@ -1,0 +1,6 @@
+RoomNumber,Description,Price,IsAvailable,RoomTypeId
+101,Single room with a queen bed,100,true,1
+102,Double room with two twin beds,150,true,2
+103,Suite with king bed and balcony,250,true,3
+104,Standard room with double bed,120,false,1
+105,Family room with two queen beds,180,true,2

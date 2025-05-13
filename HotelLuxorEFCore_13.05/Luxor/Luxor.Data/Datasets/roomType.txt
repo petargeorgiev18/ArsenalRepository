@@ -1,0 +1,6 @@
+Type
+Single
+Double
+Suite
+Double
+Apartment

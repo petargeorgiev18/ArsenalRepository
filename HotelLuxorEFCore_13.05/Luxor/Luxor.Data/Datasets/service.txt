@@ -1,0 +1,6 @@
+ServiceName,Description,Price
+Room Cleaning,Cleaning of the room during the stay,30
+Wi-Fi,Unlimited internet access,15
+Airport Pickup,Transportation from the airport to the hotel,50
+SPA,Full body massage in the hotel SPA,80
+Laundry,Clothing washing and ironing service,20
