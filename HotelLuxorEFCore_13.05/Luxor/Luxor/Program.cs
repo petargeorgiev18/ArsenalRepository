@@ -22,8 +22,7 @@ namespace Luxor
             Console.WriteLine(await seeder.SeedEmployeeServices(context));
             Console.WriteLine(await seeder.SeedFeedbacks(context));
             Display display = new Display(context);
-            await display.ShowAdminMenu();
-            //await display.ShowGuestMenu();
+            await display.ShowMenu();
         }
     }
 }

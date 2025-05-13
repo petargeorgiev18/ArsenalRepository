@@ -60,17 +60,17 @@ namespace Luxor.Core.Services.GuestServices
                 Console.WriteLine("No booking with this id found for this user.");
             }
         }
-        public async Task AddBooking(int guestId, int roomId, DateTime accommodationDate, DateTime leavingDate,
-            decimal amount, DateTime paymentDate, string paymentMethod, Status status)
+        public async Task AddBooking(int guestId, int roomId, DateTime leavingDate,
+            decimal amount, string paymentMethod, Status status)
         {
             var booking = new Booking
             {
                 GuestId = guestId,
                 RoomId = roomId,
-                AccommodationDate = accommodationDate,
+                AccommodationDate = DateTime.UtcNow,
                 LeavingDate = leavingDate,
                 Amount = amount,
-                PaymentDate = paymentDate,
+                PaymentDate = leavingDate,
                 PaymentMethod = paymentMethod,
                 Status = status
             };

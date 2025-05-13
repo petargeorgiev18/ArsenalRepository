@@ -52,7 +52,8 @@ namespace Luxor.Data.Seeding
                     FirstName = data[0],
                     LastName = data[1],
                     Email = data[2],
-                    PhoneNumber = data[3]
+                    PhoneNumber = data[3],
+                    Password = data[4]
                 };
                 await context.Guests.AddAsync(guest);
             }

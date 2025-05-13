@@ -1,4 +1,5 @@
 ﻿using Luxor.Data;
+using Luxor.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Luxor.Core.Services.AdminServices
         public async Task<string> ShowGuestsByLastName(string name)
         {
             var guests = await context.Guests
-                .Where(g => g.LastName==name)
+                .Where(g => g.LastName == name)
                 .ToListAsync();
             StringBuilder sb = new StringBuilder();
             if (guests != null)
@@ -109,6 +110,32 @@ namespace Luxor.Core.Services.AdminServices
                 Console.WriteLine($"No guests with first name starting with {letter} found.");
             }
             return sb.ToString();
+        }
+        public async Task<Guest> CheckIfGuestExists(string guestFirstName, string guestLastName, string email, string phoneNumber,
+            string password)
+        {
+            Guest guest = await context.Guests.FirstOrDefaultAsync(g => g.FirstName == guestFirstName &&
+                g.LastName == guestLastName && g.Email == email && g.PhoneNumber == phoneNumber && g.Password == password);
+            if (guest != null)
+            {
+                return guest;
+            }
+            return null;
+        }
+        public async Task<string> RegistrateGuest(string firstName, string lastName, string email, string phoneNumber,
+            string password)
+        {
+            var guest = new Guest
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                PhoneNumber = phoneNumber,
+                Password = password
+            };
+            await context.Guests.AddAsync(guest);
+            await context.SaveChangesAsync();
+            return "Guest successfully registered.";
         }
     }
 }

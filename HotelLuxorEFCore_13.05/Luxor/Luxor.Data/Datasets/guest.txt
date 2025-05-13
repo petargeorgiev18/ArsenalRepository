@@ -1,6 +1,7 @@
-FirstName,LastName,Email,PhoneNumber
-John,Doe,john.doe@example.com,555-1234
-Jane,Smith,jane.smith@example.com,555-5678
-Michael,Brown,michael.brown@example.com,555-8765
-Emily,Davis,emily.davis@example.com,555-4321
-David,Wilson,david.wilson@example.com,555-7890
+FirstName,LastName,Email,PhoneNumber,Password
+Admin,Adminov,admin@gmail.com,555-0000,admin123
+John,Doe,john.doe@example.com,555-1234,password123
+Jane,Smith,jane.smith@example.com,555-5678,password456
+Michael,Brown,michael.brown@example.com,555-8765,password789
+Emily,Davis,emily.davis@example.com,555-4321,password101
+David,Wilson,david.wilson@example.com,555-7890,password202
