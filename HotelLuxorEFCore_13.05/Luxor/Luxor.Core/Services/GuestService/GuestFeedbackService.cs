@@ -87,9 +87,10 @@ namespace Luxor.Core.Services.GuestServices
             }
             return sb.ToString();
         }
-        public async Task<string> DeleteFeedback(int feedbackId)
+        public async Task<string> DeleteFeedbackForBookingByGuestId(int feedbackId, int guestId)
         {
-            var feedback = await context.Feedbacks.FirstOrDefaultAsync(f => f.FeedbackId == feedbackId);
+            var feedback = await context.Feedbacks.FirstOrDefaultAsync(f => f.FeedbackId == feedbackId
+                    && f.GuestId == guestId);
             StringBuilder sb = new StringBuilder();
             if (feedback != null)
             {

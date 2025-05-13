@@ -49,90 +49,85 @@ namespace Luxor.View
                     string option = Console.ReadLine()!;
                     if (option == "1")
                     {
-                        while (true)
+                        Console.Clear();
+                        Console.WriteLine("=== Login ===");
+                        Console.Write("What is your name: ");
+                        string name = Console.ReadLine()!;
+                        Console.Write("What is your last name: ");
+                        string lastName = Console.ReadLine()!;
+                        Console.Write("What is your email: ");
+                        string email = Console.ReadLine()!;
+                        Console.Write("What is your phone number: ");
+                        string phoneNumber = Console.ReadLine()!;
+                        Console.Write("What is your password: ");
+                        string password = Console.ReadLine()!;
+                        if (name == string.Empty || lastName == string.Empty || email == string.Empty || phoneNumber == string.Empty)
                         {
-                            Console.Clear();
-                            Console.WriteLine("=== Login ===");
-                            Console.Write("What is your name: ");
-                            string name = Console.ReadLine()!;
-                            Console.Write("What is your last name: ");
-                            string lastName = Console.ReadLine()!;
-                            Console.Write("What is your email: ");
-                            string email = Console.ReadLine()!;
-                            Console.Write("What is your phone number: ");
-                            string phoneNumber = Console.ReadLine()!;
-                            Console.Write("What is your password: ");
-                            string password = Console.ReadLine()!;
-                            if (name == string.Empty || lastName == string.Empty || email == string.Empty || phoneNumber == string.Empty)
+                            throw new Exception("Invalid input. Try again");
+                        }
+                        if (await adminService.CheckIfAdmin(name, lastName, email, phoneNumber, password) == true)
+                        {
+                            try
                             {
-                                Console.WriteLine("Invalid input. Try again");
-                                Thread.Sleep(3000);
+                                await ShowAdminMenu();
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                        }
+                        else if (await hotelGuestsService.CheckIfGuestExists(name, lastName, email, phoneNumber, password) != null)
+                        {
+                            try
+                            {
+                                int guestId = await GetGuestId(name, lastName, email, phoneNumber, password);
+                                await ShowGuestMenu(guestId);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Guest not registered. If you wanna continue you need to registrate.");
+                            Console.WriteLine("Do you want to make registration? y/n: ");
+                            string answer = Console.ReadLine()!;
+                            if (answer.ToLower() == "y")
+                            {
+                                while (true)
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("=== Registration ===");
+                                    Console.Write("What is your name: ");
+                                    string guestName = Console.ReadLine()!;
+                                    Console.Write("What is your last name: ");
+                                    string guestLastName = Console.ReadLine()!;
+                                    Console.Write("What is your email: ");
+                                    string guestEmail = Console.ReadLine()!;
+                                    Console.Write("What is your phone number: ");
+                                    string guestPhoneNumber = Console.ReadLine()!;
+                                    Console.Write("What is your password: ");
+                                    string guestPassword = Console.ReadLine()!;
+                                    if (guestName == string.Empty || guestLastName == string.Empty || guestEmail == string.Empty || guestPhoneNumber == string.Empty ||
+                                        guestPhoneNumber == string.Empty)
+                                    {
+                                        Console.WriteLine("Invalid input. Try again");
+                                        Thread.Sleep(3000);
+                                        continue;
+                                    }
+                                    await hotelGuestsService.RegistrateGuest(guestName, guestLastName, guestEmail, guestPhoneNumber, guestPassword);
+                                }
+                            }
+                            else if (answer.ToLower() == "n")
+                            {
                                 continue;
-                            }
-                            if (await adminService.CheckIfAdmin(name, lastName, email, phoneNumber, password) == true)
-                            {
-                                try
-                                {
-                                    await ShowAdminMenu();
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine(ex.Message);
-                                }
-                            }
-                            else if (await hotelGuestsService.CheckIfGuestExists(name, lastName, email, phoneNumber, password) != null)
-                            {
-                                try
-                                {
-                                    int guestId = await GetGuestId(name, lastName, email, phoneNumber, password);
-                                    await ShowGuestMenu(guestId);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine(ex.Message);
-                                }
                             }
                             else
                             {
-                                Console.WriteLine("Guest not registered. If you wanna continue you need to registrate.");
-                                Console.WriteLine("Do you want to make registration? y/n: ");
-                                string answer = Console.ReadLine()!;
-                                if (answer.ToLower() == "y")
-                                {
-                                    while (true)
-                                    {
-                                        Console.Clear();
-                                        Console.WriteLine("=== Registration ===");
-                                        Console.Write("What is your name: ");
-                                        string guestName = Console.ReadLine()!;
-                                        Console.Write("What is your last name: ");
-                                        string guestLastName = Console.ReadLine()!;
-                                        Console.Write("What is your email: ");
-                                        string guestEmail = Console.ReadLine()!;
-                                        Console.Write("What is your phone number: ");
-                                        string guestPhoneNumber = Console.ReadLine()!;
-                                        Console.Write("What is your password: ");
-                                        string guestPassword = Console.ReadLine()!;
-                                        if (guestName == string.Empty || guestLastName == string.Empty || guestEmail == string.Empty || guestPhoneNumber == string.Empty ||
-                                            guestPhoneNumber == string.Empty)
-                                        {
-                                            Console.WriteLine("Invalid input. Try again");
-                                            Thread.Sleep(3000);
-                                            continue;
-                                        }
-                                        await hotelGuestsService.RegistrateGuest(guestName, guestLastName, guestEmail, guestPhoneNumber, guestPassword);
-                                    }
-                                }
-                                else if (answer.ToLower() == "n")
-                                {
-                                    continue;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Invalid input. The only options are y/n. Try again");
-                                    Thread.Sleep(3000);
-                                    continue;
-                                }
+                                Console.WriteLine("Invalid input. The only options are y/n. Try again");
+                                Thread.Sleep(3000);
+                                continue;
                             }
                         }
                     }
@@ -151,7 +146,7 @@ namespace Luxor.View
                 catch (Exception ex)
                 {
                     Console.WriteLine($"{ex.Message}");
-                    Thread.Sleep(5000);
+                    Thread.Sleep(3000);
                     continue;
                 }
             }
@@ -177,6 +172,7 @@ namespace Luxor.View
                 Console.WriteLine("12. Show all bookings for room");
                 Console.WriteLine("13. Show all bookings for guest");
                 Console.WriteLine("14. Show bookings by status");
+                Console.WriteLine("40. Change status of booking");
                 Console.WriteLine("15. Show all feedbacks");
                 Console.WriteLine("16. Show all feedbacks for booking ordered by rating descending");
                 Console.WriteLine("17. Show feedbacks by rating for booking");
@@ -327,6 +323,13 @@ namespace Luxor.View
                     case 26:
                         Console.WriteLine("Logout...");
                         return;
+                    case 40:
+                        Console.Write("Enter booking ID: ");
+                        int bookingIdToChangeStatus = int.Parse(Console.ReadLine()!);
+                        Console.Write("Enter new status: ");
+                        string newStatus = Console.ReadLine()!;
+                        Console.WriteLine(await bookingsService.ChangeStatusOfBooking(bookingIdToChangeStatus, newStatus));
+                        break;
                     default:
                         Console.WriteLine("Invalid option. Try again.");
                         continue;
@@ -381,12 +384,13 @@ namespace Luxor.View
                     case 7:
                         Console.Write("Enter feedback ID: ");
                         int feedbackId = int.Parse(Console.ReadLine()!);
-                        Console.WriteLine(await guestFeedbacksService.DeleteFeedback(feedbackId));
+                        Console.WriteLine(await guestFeedbacksService.DeleteFeedbackForBookingByGuestId(feedbackId, guestId));
                         break;
                     case 8:
                         Console.WriteLine(await guestRoomService.ShowAvailableRooms());
                         Console.Write("Enter room number: ");
-                        int roomId = int.Parse(Console.ReadLine()!);
+                        string roomNumber = Console.ReadLine()!;
+                        int roomId = await guestRoomService.GetRoomIdByRoomNumber(roomNumber);
                         Console.Write("Enter accommodation date (yyyy-mm-dd): ");
                         DateTime accommodationDate = DateTime.Parse(Console.ReadLine()!);
                         Console.Write("Enter leaving date (yyyy-mm-dd): ");
@@ -399,6 +403,14 @@ namespace Luxor.View
                         string status = Console.ReadLine()!;
                         bool tryStatus = Enum.TryParse(status, out Status parsedStatus);
                         await guestBookingsService.AddBooking(guestId, roomId, accommodationDate, leavingDate, amount, paymentMethod, parsedStatus);
+                        break;
+                    case 9:
+                        Console.Write("Enter booking ID: ");
+                        int bookingIdToCancel = int.Parse(Console.ReadLine()!);
+                        await guestBookingsService.DeleteBooking(bookingIdToCancel);
+                        break;
+                    case 10:
+                        Console.WriteLine(await guestFeedbacksService.ShowAllFeedbacksForBookingsForGuest(guestId));
                         break;
                     case 11:
                         Console.WriteLine("Logout...");

@@ -90,5 +90,31 @@ namespace Luxor.Core.Services.AdminServices
             }
             return sb.ToString();
         }
+        public async Task<string> ChangeStatusOfBooking(int bookingId, string status)
+        {
+            var booking = await context.Bookings
+                .FirstOrDefaultAsync(b => b.BookingId == bookingId);
+            StringBuilder sb = new StringBuilder();
+            if (booking != null)
+            {
+                bool tryChange = Enum.TryParse(status, out Status parsedStatus);
+                if (tryChange)
+                {
+                    booking.Status = parsedStatus;
+                }
+                else
+                {
+                    sb.AppendLine("Invalid status.");
+                    return sb.ToString();
+                }
+                await context.SaveChangesAsync();
+                sb.AppendLine($"Booking with ID {bookingId} status changed to {status}.");
+            }
+            else
+            {
+                sb.AppendLine("No booking found with this ID.");
+            }
+            return sb.ToString();
+        }
     }
 }

@@ -59,5 +59,18 @@ namespace Luxor.Core.Services.GuestServices
             }
             return sb.ToString();
         }
+        public async Task<int> GetRoomIdByRoomNumber(string roomNumber)
+        {
+            var room = await context.Rooms
+                .FirstOrDefaultAsync(r => r.RoomNumber == roomNumber);
+            if (room != null)
+            {
+                return room.RoomId;
+            }
+            else
+            {
+                throw new Exception("Room not found");
+            }
+        }
     }
 }
