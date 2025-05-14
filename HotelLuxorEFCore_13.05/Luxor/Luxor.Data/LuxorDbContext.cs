@@ -28,6 +28,18 @@ namespace Luxor.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Feedback>()
+                .HasOne(f => f.Guest)
+                .WithMany(g => g.Feedbacks)
+                .HasForeignKey(f => f.GuestId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Feedback>()
+                .HasOne(f => f.Booking)
+                .WithMany(b => b.Feedbacks)
+                .HasForeignKey(f => f.BookingId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
