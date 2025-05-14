@@ -52,7 +52,6 @@ namespace Luxor.Core.Services.AdminServices
             {
                 sb.AppendLine($"Service ID: {service.ServiceId}, Name: {service.ServiceName}, Price: {service.Price}");               
             }
-
             return sb.ToString();
         }
 
