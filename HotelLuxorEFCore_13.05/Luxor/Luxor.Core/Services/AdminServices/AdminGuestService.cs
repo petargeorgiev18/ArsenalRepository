@@ -122,9 +122,10 @@ namespace Luxor.Core.Services.AdminServices
             }
             return null;
         }
-        public async Task<string> RegistrateGuest(string firstName, string lastName, string email, string phoneNumber,
+        public async Task<string> RegisterGuest(string firstName, string lastName, string email, string phoneNumber,
             string password)
         {
+            StringBuilder sb = new StringBuilder();
             var guest = new Guest
             {
                 FirstName = firstName,
@@ -133,9 +134,18 @@ namespace Luxor.Core.Services.AdminServices
                 PhoneNumber = phoneNumber,
                 Password = password
             };
+            var existingGuest = await context.Guests
+                .FirstOrDefaultAsync(g => g.FirstName == firstName && g.LastName == lastName 
+                && g.Email == email && g.PhoneNumber == phoneNumber && g.Password == password);
+            if (existingGuest != null)
+            {
+                sb.AppendLine("Guest already exists.");
+                return sb.ToString();
+            }
             await context.Guests.AddAsync(guest);
             await context.SaveChangesAsync();
-            return "Guest successfully registered.";
+            sb.AppendLine("Guest successfully registered.");
+            return sb.ToString();
         }
     }
 }
