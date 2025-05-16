@@ -25,25 +25,9 @@ namespace Luxor.Core.Services.GuestServices
             foreach (var room in rooms)
             {
                 sb.AppendLine($"RoomNumber: {room.RoomNumber}, " +
-                    $"RoomType: {room.RoomType}, Price: {room.Price}");
+                    $"RoomType: {room.RoomType.Type}, Price: {room.Price}");
             }
             return sb.ToString();
-        }
-        public void BookRoom()
-        {
-            // Logic to book a room
-        }
-        public void CancelBooking()
-        {
-            // Logic to cancel a booking
-        }
-        public void ViewBookingDetails()
-        {
-            // Logic to view booking details
-        }
-        public void LeaveFeedback()
-        {
-            // Logic to leave feedback
         }
         public async Task<string> ShowRoomsByPrice(decimal price)
         {

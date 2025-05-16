@@ -46,12 +46,18 @@ namespace Luxor.Core.Services.AdminServices
                 .Include(s => s.BookingServices)
                 .Where(s => s.BookingServices.Any(bs => bs.BookingId == bookingId))
                 .ToListAsync();
+            var existingBooking = await context.Bookings.FirstOrDefaultAsync(context => context.BookingId == bookingId);
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Services for Booking ID: {bookingId}");
-            foreach (var service in services)
+            if (existingBooking!=null)
             {
-                sb.AppendLine($"Service ID: {service.ServiceId}, Name: {service.ServiceName}, Price: {service.Price}");               
+                sb.AppendLine($"Services for Booking ID: {bookingId}");
+                foreach (var service in services)
+                {
+                    sb.AppendLine($"Service ID: {service.ServiceId}, Name: {service.ServiceName}, Price: {service.Price}");
+                }
+                return sb.ToString();
             }
+            sb.AppendLine($"There's no booking with id {bookingId}");
             return sb.ToString();
         }
 

@@ -39,7 +39,7 @@ namespace Luxor.Data
                 .HasOne(f => f.Booking)
                 .WithMany(b => b.Feedbacks)
                 .HasForeignKey(f => f.BookingId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

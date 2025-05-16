@@ -19,7 +19,7 @@ namespace Luxor.Core.Services.AdminServices
         }
         public async Task<string> ShowAllGuests()
         {
-            var allGuests = await context.Guests.ToListAsync();
+            var allGuests = await context.Guests.Where(g=>g.GuestId!=1).ToListAsync();
             StringBuilder sb = new StringBuilder();
             Console.WriteLine("All guests:");
             foreach (var guest in allGuests)
@@ -40,7 +40,7 @@ namespace Luxor.Core.Services.AdminServices
                 Console.WriteLine($"Guest with last name {name}:");
                 foreach (var guest in guests)
                 {
-                    sb.AppendLine($"ID: {guest.GuestId}, Name: {guest.LastName}, Email: {guest.Email}, " +
+                    sb.AppendLine($"ID: {guest.GuestId}, FullName: {guest.FirstName} {guest.LastName}, Email: {guest.Email}, " +
                         $"PhoneNumber: {guest.PhoneNumber}");
                 }
             }
@@ -64,7 +64,7 @@ namespace Luxor.Core.Services.AdminServices
             Console.WriteLine($"Guest with full name {firstName} {lastName}:");
             foreach (var guest in guests)
             {
-                sb.AppendLine($"ID: {guest.GuestId}, Name: {guest.LastName}, Email: {guest.Email}, " +
+                sb.AppendLine($"ID: {guest.GuestId}, FullName: {guest.FirstName} {guest.LastName}, Email: {guest.Email}, " +
                     $"PhoneNumber: {guest.PhoneNumber}");
             }
             return sb.ToString();

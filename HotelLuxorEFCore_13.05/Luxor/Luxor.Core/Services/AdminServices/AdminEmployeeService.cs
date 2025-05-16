@@ -61,32 +61,43 @@ namespace Luxor.Core.Services.AdminServices
             }
             return sb.ToString();
         }
-        public void AddEmployee(string name, int age, string position, decimal salary)
+        public async Task<string> AddEmployee(string firstName, string lastName, int age, string position, decimal salary)
         {
+            StringBuilder sb = new StringBuilder();
             var employee = new Employee
             {
-                FirstName = name.Split(' ')[0],
-                LastName = name.Split(' ')[1],
+                FirstName = firstName,
+                LastName = lastName,
                 Age = age,
                 Position = position,
                 Salary = salary,
                 HireDate = DateTime.UtcNow
             };
-            context.Employees.Add(employee);
-            context.SaveChanges();
+            var existingEmployee = await context.Employees
+                .FirstOrDefaultAsync(e => e.FirstName == firstName && e.LastName == lastName 
+                && e.Age == age && e.Position == position && e.Salary == salary);
+            if (existingEmployee != null)
+            {
+                sb.AppendLine("Employee already exists.");
+                return sb.ToString();
+            }
+            await context.Employees.AddAsync(employee);
+            await context.SaveChangesAsync();
+            sb.AppendLine($"Employee {firstName} {lastName} successfully added.");
+            return sb.ToString();
         }
-        public async Task<string> RemoveEmployee(string name, int id)
+        public async Task<string> RemoveEmployee(string name)
         {
             string[] names = name.Split(' ');
             StringBuilder sb = new StringBuilder();
             var employee = context.Employees
-                .Where(e => e.FirstName == names[0] && e.LastName == names[1] && e.EmployeeId == id)
+                .Where(e => e.FirstName == names[0] && e.LastName == names[1])
                 .FirstOrDefault();
             if (employee != null)
             {
                 context.Employees.Remove(employee);
                 await context.SaveChangesAsync();
-                sb.AppendLine($"Employee with ID {id} and name {name} successfully removed.");
+                sb.AppendLine($"Employee with name {name} successfully removed.");
             }
             else
             {
