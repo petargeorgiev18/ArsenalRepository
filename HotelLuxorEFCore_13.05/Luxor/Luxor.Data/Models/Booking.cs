@@ -1,6 +1,7 @@
 ﻿using Luxor.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static Luxor.Common.EntityClassesValidations.Booking;
 
 namespace Luxor.Data.Models
 {
@@ -13,6 +14,7 @@ namespace Luxor.Data.Models
         [Required]
         public DateTime LeavingDate { get; set; }
         [Required]
+        [MaxLength(BookingAmountMaxLength)]
         public decimal Amount { get; set; }
         [Required]
         public DateTime PaymentDate { get; set; }
