@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static Luxor.Common.EntityClassesValidation.Feedback;
 
 namespace Luxor.Data.Models
 {
@@ -13,11 +9,12 @@ namespace Luxor.Data.Models
         [Key]
         public int FeedbackId { get; set; }
         [Required]
+        [MaxLength(FeedbackCommentMaxLength)]
         public string Comment { get; set; } = null!;
         [Required]
         public int Rating { get; set; }
         [Required]
-        public DateTime PublishedOn { get; set; }
+        public DateTime PublishedOn { get; set; } = DateTime.UtcNow;
         [Required]
         [ForeignKey(nameof(Booking))]
         public int BookingId { get; set; }

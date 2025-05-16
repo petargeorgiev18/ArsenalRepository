@@ -13,6 +13,7 @@ namespace Luxor.Data.Models
         [Required]
         public DateTime LeavingDate { get; set; }
         [Required]
+        [Column(TypeName = "decimal(10,2)")]
         public decimal Amount { get; set; }
         [Required]
         public DateTime PaymentDate { get; set; }

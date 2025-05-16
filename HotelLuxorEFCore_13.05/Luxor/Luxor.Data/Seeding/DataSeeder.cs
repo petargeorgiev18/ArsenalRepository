@@ -171,13 +171,14 @@ namespace Luxor.Data.Seeding
             foreach (var line in employeeData)
             {
                 string[] data = line.Split(',');
-                DateTime hireDate = DateTime.ParseExact(data[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                DateTime hireDate = DateTime.ParseExact(data[5], "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 Employee employee = new Employee
                 {
-                    Name = data[0],
-                    Age = int.Parse(data[1]),
-                    Position = data[2],
-                    Salary = decimal.Parse(data[3]),
+                    FirstName = data[0],
+                    LastName = data[1],
+                    Age = int.Parse(data[2]),
+                    Position = data[3],
+                    Salary = decimal.Parse(data[4]),
                     HireDate = hireDate,
                 };
                 await context.Employees.AddAsync(employee);

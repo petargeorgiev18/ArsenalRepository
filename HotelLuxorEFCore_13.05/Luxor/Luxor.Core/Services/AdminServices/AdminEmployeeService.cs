@@ -23,7 +23,7 @@ namespace Luxor.Core.Services.AdminServices
             Console.WriteLine("All employees:");
             foreach (var employee in allEmployees)
             {
-                sb.AppendLine($"ID: {employee.EmployeeId}, Name: {employee.Name}, " +
+                sb.AppendLine($"ID: {employee.EmployeeId}, FullName: {employee.FirstName} {employee.LastName}, " +
                     $"Salary: {employee.Salary}");
             }
             return sb.ToString();
@@ -37,7 +37,7 @@ namespace Luxor.Core.Services.AdminServices
             Console.WriteLine($"Employee with ID {employeeId}:");
             if (employee != null)
             {
-                sb.AppendLine($"ID: {employee.EmployeeId}, Name: {employee.Name}, " +
+                sb.AppendLine($"ID: {employee.EmployeeId}, FullName: {employee.FirstName} {employee.LastName}, " +
                     $"Salary: {employee.Salary}");
             }
             else
@@ -48,14 +48,15 @@ namespace Luxor.Core.Services.AdminServices
         }
         public async Task<string> ShowEmployeesByName(string name)
         {
+            string[] names = name.Split(' ');
             var employees = await context.Employees
-                .Where(e => e.Name.Contains(name))
+                .Where(e => e.FirstName == names[0] && e.LastName == names[1])
                 .ToListAsync();
             StringBuilder sb = new StringBuilder();
             Console.WriteLine($"Employees with name {name}:");
             foreach (var employee in employees)
             {
-                sb.AppendLine($"ID: {employee.EmployeeId}, Name: {employee.Name}, " +
+                sb.AppendLine($"ID: {employee.EmployeeId}, FullName: {employee.FirstName} {employee.LastName}, " +
                     $"Salary: {employee.Salary}");
             }
             return sb.ToString();
@@ -64,7 +65,8 @@ namespace Luxor.Core.Services.AdminServices
         {
             var employee = new Employee
             {
-                Name = name,
+                FirstName = name.Split(' ')[0],
+                LastName = name.Split(' ')[1],
                 Age = age,
                 Position = position,
                 Salary = salary,
@@ -75,9 +77,10 @@ namespace Luxor.Core.Services.AdminServices
         }
         public async Task<string> RemoveEmployee(string name, int id)
         {
+            string[] names = name.Split(' ');
             StringBuilder sb = new StringBuilder();
             var employee = context.Employees
-                .Where(e => e.Name == name && e.EmployeeId == id)
+                .Where(e => e.FirstName == names[0] && e.LastName == names[1] && e.EmployeeId == id)
                 .FirstOrDefault();
             if (employee != null)
             {

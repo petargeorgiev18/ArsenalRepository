@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static Luxor.Common.EntityClassesValidation.Room;
 
 namespace Luxor.Data.Models
 {
@@ -8,8 +9,10 @@ namespace Luxor.Data.Models
         [Key]
         public int RoomId { get; set; }
         [Required]
+        [MaxLength(RoomNumberMaxLength)]
         public string RoomNumber { get; set; } = string.Empty;
         [Required]
+        [MaxLength(RoomDescriptionMaxLength)]
         public string Description { get; set; } = string.Empty;
         [Required]
         public decimal Price { get; set; }

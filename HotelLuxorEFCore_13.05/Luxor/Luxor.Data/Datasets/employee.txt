@@ -1,6 +1,6 @@
-Name,Age,Position,Salary,HireDate
-Ivan Doinov,20,Software Developer,55000,2020-01-15
-Dragana Stefanova,38,Project Manager,70000,2019-03-10
-Mihail Iordanov,25,UX/UI Designer,60000,2018-07-22
-Petkan Petrov,30,Database Administrator,80000,2015-06-30
-Nevena Nikolova,23,DevOps Engineer,65000,2021-10-05
+FirstName,LastName,Age,Position,Salary,HireDate
+Ivan,Doinov,20,Software Developer,55000,2020-01-15
+Dragana,Stefanova,38,Project Manager,70000,2019-03-10
+Mihail,Iordanov,25,UX/UI Designer,60000,2018-07-22
+Petkan,Petrov,30,Database Administrator,80000,2015-06-30
+Nevena,Nikolova,23,DevOps Engineer,65000,2021-10-05
