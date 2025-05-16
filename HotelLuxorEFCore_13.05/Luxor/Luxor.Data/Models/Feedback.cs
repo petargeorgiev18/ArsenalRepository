@@ -1,6 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static Luxor.Common.EntityClassesValidations.Feedback;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Luxor.Data.Models
 {
@@ -9,7 +13,6 @@ namespace Luxor.Data.Models
         [Key]
         public int FeedbackId { get; set; }
         [Required]
-        [MaxLength(FeedbackCommentMaxLength)]
         public string Comment { get; set; } = null!;
         [Required]
         public int Rating { get; set; }
