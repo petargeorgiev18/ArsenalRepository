@@ -44,7 +44,8 @@ namespace Luxor.View
                     Console.Clear();
                     Console.WriteLine("=== Welcome to Hotel Luxor === ");
                     Console.WriteLine("1. Login");
-                    Console.WriteLine("2. Exit app");
+                    Console.WriteLine("2. Registration");
+                    Console.WriteLine("3. Exit app");
                     Console.Write("Enter option: ");
                     string option = Console.ReadLine()!;
                     if (option == "1")
@@ -90,55 +91,86 @@ namespace Luxor.View
                         }
                         else
                         {
-                            Console.WriteLine("Guest not registered. If you wanna continue you need to registrate.");
-                            Console.WriteLine("Do you want to make registration? y/n: ");
-                            string answer = Console.ReadLine()!;
-                            if (answer.ToLower() == "y")
-                            {
-                                while (true)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("=== Registration ===");
-                                    Console.Write("What is your name: ");
-                                    string guestName = Console.ReadLine()!;
-                                    Console.Write("What is your last name: ");
-                                    string guestLastName = Console.ReadLine()!;
-                                    Console.Write("What is your email: ");
-                                    string guestEmail = Console.ReadLine()!;
-                                    Console.Write("What is your phone number: ");
-                                    string guestPhoneNumber = Console.ReadLine()!;
-                                    Console.Write("What is your password: ");
-                                    string guestPassword = Console.ReadLine()!;
-                                    if (guestName == string.Empty || guestLastName == string.Empty || guestEmail == string.Empty || guestPhoneNumber == string.Empty ||
-                                        guestPhoneNumber == string.Empty)
-                                    {
-                                        Console.WriteLine("Invalid input. Try again");
-                                        Thread.Sleep(3000);
-                                        continue;
-                                    }
-                                    await hotelGuestsService.RegistrateGuest(guestName, guestLastName, guestEmail, guestPhoneNumber, guestPassword);
-                                }
-                            }
-                            else if (answer.ToLower() == "n")
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input. The only options are y/n. Try again");
-                                Thread.Sleep(3000);
-                                continue;
-                            }
+                            Console.WriteLine("Guest not registered. If you wanna continue you need make registration.");
+                            Console.WriteLine("You're gonna be redirected on the main page after 4 seconds.");
+                            Thread.Sleep(4000);
+                            //Console.WriteLine("Do you want to make registration? y/n: ");
+                            //string answer = Console.ReadLine()!;
+                            //if (answer.ToLower() == "y")
+                            //{
+                            //    while (true)
+                            //    {
+                            //        Console.Clear();
+                            //        Console.WriteLine("=== Registration ===");
+                            //        Console.Write("What is your name: ");
+                            //        string guestName = Console.ReadLine()!;
+                            //        Console.Write("What is your last name: ");
+                            //        string guestLastName = Console.ReadLine()!;
+                            //        Console.Write("What is your email: ");
+                            //        string guestEmail = Console.ReadLine()!;
+                            //        Console.Write("What is your phone number: ");
+                            //        string guestPhoneNumber = Console.ReadLine()!;
+                            //        Console.Write("What is your password: ");
+                            //        string guestPassword = Console.ReadLine()!;
+                            //        if (guestName == string.Empty || guestLastName == string.Empty || guestEmail == string.Empty || guestPhoneNumber == string.Empty ||
+                            //            guestPhoneNumber == string.Empty)
+                            //        {
+                            //            Console.WriteLine("Invalid input. Try again");
+                            //            Thread.Sleep(3000);
+                            //            continue;
+                            //        }
+                            //        await hotelGuestsService.RegistrateGuest(guestName, guestLastName, guestEmail, guestPhoneNumber, guestPassword);
+                            //        Console.WriteLine("Registration done successfully. You're gonna be returned to the main page");
+                            //        Thread.Sleep(3000);
+                            //    }
+                            //}
+                            //else if (answer.ToLower() == "n")
+                            //{
+                            //    continue;
+                            //}
+                            //else
+                            //{
+                            //    Console.WriteLine("Invalid input. The only options are y/n. Try again");
+                            //    Thread.Sleep(3000);
+                            //    continue;
+                            //}
                         }
                     }
                     else if (option == "2")
+                    {
+                        Console.Clear();
+                        Console.WriteLine("=== Registration ===");
+                        Console.Write("What is your name: ");
+                        string guestName = Console.ReadLine()!;
+                        Console.Write("What is your last name: ");
+                        string guestLastName = Console.ReadLine()!;
+                        Console.Write("What is your email: ");
+                        string guestEmail = Console.ReadLine()!;
+                        Console.Write("What is your phone number: ");
+                        string guestPhoneNumber = Console.ReadLine()!;
+                        Console.Write("What is your password: ");
+                        string guestPassword = Console.ReadLine()!;
+                        if (guestName == string.Empty || guestLastName == string.Empty || guestEmail == string.Empty || guestPhoneNumber == string.Empty ||
+                            guestPhoneNumber == string.Empty)
+                        {
+                            Console.WriteLine("Invalid input. Try again after 3 seconds. " +
+                                "You're gonna be redirected to the main page.");
+                            Thread.Sleep(3000);
+                            continue;
+                        }
+                        Console.WriteLine(await hotelGuestsService.RegisterGuest(guestName, guestLastName, guestEmail, guestPhoneNumber, guestPassword));
+                        Console.WriteLine("You're gonna be redirected to the main page after 4 seconds");
+                        Thread.Sleep(4000);
+                        continue;
+                    }
+                    else if (option == "3")
                     {
                         Console.WriteLine("Exiting the app...");
                         return;
                     }
                     else
                     {
-                        Console.WriteLine("Invallid option. Try again");
+                        Console.WriteLine("Invalid option. Try again after 3 seconds");
                         Thread.Sleep(3000);
                         continue;
                     }
@@ -146,7 +178,7 @@ namespace Luxor.View
                 catch (Exception ex)
                 {
                     Console.WriteLine($"{ex.Message}");
-                    Thread.Sleep(3000);
+                    Thread.Sleep(4000);
                     continue;
                 }
             }
