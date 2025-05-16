@@ -1,6 +1,6 @@
 ﻿namespace Luxor.Common
 {
-    public class EntityClassesValidations
+    public class EntityClassesValidation
     {
 
     }
