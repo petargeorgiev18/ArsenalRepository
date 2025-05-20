@@ -32,7 +32,7 @@ namespace StrategyGame.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=StrategyGame;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-VI3C6PQ\\SQLEXPRESS;Database=StrategyGame;Trusted_Connection=True;TrustServerCertificate=True;");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
