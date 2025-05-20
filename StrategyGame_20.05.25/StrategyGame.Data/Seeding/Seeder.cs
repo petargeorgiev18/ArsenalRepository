@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StrategyGame.Data.Seeding
 {
-    public class SeedService
+    public class Seeder
     {
         private readonly StrategyGameDbContext context;
-        public SeedService(StrategyGameDbContext context)
+        public Seeder(StrategyGameDbContext context)
         {
             this.context = context;
         }

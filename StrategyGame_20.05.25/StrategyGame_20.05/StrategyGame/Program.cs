@@ -12,7 +12,7 @@ namespace StrategyGame
             GameService service = new GameService(context);
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-            SeedService seeder = new SeedService(context);
+            Seeder seeder = new Seeder(context);
             string filePath = Path.Combine(Environment.CurrentDirectory, "Dataset", "data.json");
             await seeder.SeedFromJsonAsync(filePath);
             while (true)
