@@ -23,7 +23,6 @@ namespace StrategyGame
                 Console.WriteLine("3. Покажи сгради и единици за фракция");
                 Console.WriteLine("0. Изход");
                 Console.Write("Избор: ");
-
                 var choice = Console.ReadLine();
 
                 switch (choice)
