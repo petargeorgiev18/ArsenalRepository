@@ -61,9 +61,11 @@ namespace Luxor.Core.Services.GuestServices
             }
             return sb.ToString();
         }
-        public async Task AddBooking(int guestId, int roomId, DateTime accomodationDate, DateTime leavingDate,
-            decimal amount, string paymentMethod, Status status)
+        public async Task AddBooking(int guestId, string roomNumber, DateTime accomodationDate, DateTime leavingDate,
+             string paymentMethod)
         {
+            int roomId = context.Rooms.FirstOrDefault(r => r.RoomNumber == roomNumber).RoomId;
+            decimal amount = context.Rooms.FirstOrDefault(r => r.RoomNumber == roomNumber).Price;
             var booking = new Booking
             {
                 GuestId = guestId,
@@ -73,7 +75,7 @@ namespace Luxor.Core.Services.GuestServices
                 Amount = amount,
                 PaymentDate = leavingDate,
                 PaymentMethod = paymentMethod,
-                Status = status
+                Status = Status.Reserved
             };
             await context.Bookings.AddAsync(booking);
             await context.SaveChangesAsync();
@@ -97,18 +99,19 @@ namespace Luxor.Core.Services.GuestServices
                 Console.WriteLine("No booking with this id found.");
             }
         }
-        public async Task DeleteBooking(int bookingId)
+        public async Task<string> DeleteBooking(int guestId, int bookingId)
         {
-            var booking = await context.Bookings.FindAsync(bookingId);
+            StringBuilder sb = new StringBuilder();
+            var booking = await context.Bookings.FirstOrDefaultAsync(b => b.BookingId == bookingId && b.GuestId == guestId);
             if (booking != null)
             {
                 context.Bookings.Remove(booking);
                 await context.SaveChangesAsync();
+                sb.AppendLine($"Booking with id {bookingId} deleted successfully.");
+                return sb.ToString();
             }
-            else
-            {
-                Console.WriteLine("No booking with this id found.");
-            }
+            sb.AppendLine("No booking with this id found.");
+            return sb.ToString();
         }
         public async Task<string> ShowAllServicesForAnyBookingOfGuest(int guestId)
         {

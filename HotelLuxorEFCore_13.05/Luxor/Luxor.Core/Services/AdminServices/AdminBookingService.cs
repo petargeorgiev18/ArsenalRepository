@@ -81,7 +81,7 @@ namespace Luxor.Core.Services.AdminServices
                 sb.AppendLine("No bookings found.");
                 return sb.ToString();
             }
-            Console.WriteLine($"Bookings with reserved status:");
+            sb.AppendLine($"Bookings with reserved status:");
             foreach (var booking in reservedBookings)
             {
                 sb.AppendLine($"ID: {booking.BookingId}, GuestId: {booking.GuestId}, " +

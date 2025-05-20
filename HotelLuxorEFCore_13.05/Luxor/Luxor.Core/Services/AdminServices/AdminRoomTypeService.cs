@@ -22,7 +22,7 @@ namespace Luxor.Core.Controllers.AdminControllers
             Console.WriteLine("All room types:");
             foreach (var roomType in allRoomTypes)
             {
-                sb.AppendLine($"ID: {roomType.RoomTypeId}, TypeRoom: {roomType.Type}");
+                sb.AppendLine($"TypeRoom: {roomType.Type}");
             }
             return sb.ToString();
         }   

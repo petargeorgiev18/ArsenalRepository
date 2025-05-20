@@ -56,8 +56,9 @@ namespace Luxor.Core.Services.GuestServices
             }
             return sb.ToString();
         }
-        public async Task LeaveFeedback(int bookingId, int guestId, string comment, int rating)
+        public async Task<string> LeaveFeedback(int bookingId, int guestId, string comment, int rating)
         {
+            StringBuilder sb = new StringBuilder();
             var feedback = new Feedback
             {
                 BookingId = bookingId,
@@ -66,8 +67,17 @@ namespace Luxor.Core.Services.GuestServices
                 Rating = rating,
                 PublishedOn = DateTime.Now
             };
+            var booking = await context.Bookings.FirstOrDefaultAsync(b =>b.BookingId == bookingId 
+                && b.GuestId == guestId);
+            if (booking == null)
+            {
+                sb.AppendLine("Booking not found for this user.");
+                return sb.ToString();
+            }
             await context.Feedbacks.AddAsync(feedback);
             await context.SaveChangesAsync();
+            sb.AppendLine("Feedback added successfully.");
+            return sb.ToString();
         }
         public async Task<string> UpdateFeedback(int feedbackId, string comment, int rating)
         {

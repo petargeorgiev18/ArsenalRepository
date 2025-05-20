@@ -1,5 +1,6 @@
 ﻿using Luxor.Core.Controllers.AdminControllers;
 using Luxor.Core.Services.AdminServices;
+using Luxor.Core.Services.GuestService;
 using Luxor.Core.Services.GuestServices;
 using Luxor.Data;
 using Luxor.Data.Models;
@@ -20,6 +21,7 @@ namespace Luxor.View
         private readonly GuestFeedbackService guestFeedbacksService;
         private readonly GuestRoomService guestRoomService;
         private readonly AdminService adminService;
+        private readonly GuestService guestService;
         public Display(LuxorDbContext context)
         {
             this.context = context;
@@ -34,6 +36,7 @@ namespace Luxor.View
             guestFeedbacksService = new GuestFeedbackService(context);
             guestRoomService = new GuestRoomService(context);
             adminService = new AdminService(context);
+            guestService = new GuestService(context);
         }
         public async Task ShowMenu()
         {
@@ -44,7 +47,8 @@ namespace Luxor.View
                     Console.Clear();
                     Console.WriteLine("=== Welcome to Hotel Luxor === ");
                     Console.WriteLine("1. Login");
-                    Console.WriteLine("2. Exit app");
+                    Console.WriteLine("2. Registration");
+                    Console.WriteLine("3. Exit app");
                     Console.Write("Enter option: ");
                     string option = Console.ReadLine()!;
                     if (option == "1")
@@ -74,6 +78,7 @@ namespace Luxor.View
                             catch (Exception ex)
                             {
                                 Console.WriteLine(ex.Message);
+                                Thread.Sleep(5000);
                             }
                         }
                         else if (await hotelGuestsService.CheckIfGuestExists(name, lastName, email, phoneNumber, password) != null)
@@ -86,59 +91,51 @@ namespace Luxor.View
                             catch (Exception ex)
                             {
                                 Console.WriteLine(ex.Message);
+                                Thread.Sleep(5000);
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Guest not registered. If you wanna continue you need to registrate.");
-                            Console.WriteLine("Do you want to make registration? y/n: ");
-                            string answer = Console.ReadLine()!;
-                            if (answer.ToLower() == "y")
-                            {
-                                while (true)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("=== Registration ===");
-                                    Console.Write("What is your name: ");
-                                    string guestName = Console.ReadLine()!;
-                                    Console.Write("What is your last name: ");
-                                    string guestLastName = Console.ReadLine()!;
-                                    Console.Write("What is your email: ");
-                                    string guestEmail = Console.ReadLine()!;
-                                    Console.Write("What is your phone number: ");
-                                    string guestPhoneNumber = Console.ReadLine()!;
-                                    Console.Write("What is your password: ");
-                                    string guestPassword = Console.ReadLine()!;
-                                    if (guestName == string.Empty || guestLastName == string.Empty || guestEmail == string.Empty || guestPhoneNumber == string.Empty ||
-                                        guestPhoneNumber == string.Empty)
-                                    {
-                                        Console.WriteLine("Invalid input. Try again");
-                                        Thread.Sleep(3000);
-                                        continue;
-                                    }
-                                    await hotelGuestsService.RegistrateGuest(guestName, guestLastName, guestEmail, guestPhoneNumber, guestPassword);
-                                }
-                            }
-                            else if (answer.ToLower() == "n")
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input. The only options are y/n. Try again");
-                                Thread.Sleep(3000);
-                                continue;
-                            }
+                            Console.WriteLine("Guest not registered. If you wanna continue you need make registration.");
+                            Console.WriteLine("You're gonna be redirected on the main page after 4 seconds.");
+                            Thread.Sleep(4000);
                         }
                     }
                     else if (option == "2")
+                    {
+                        Console.Clear();
+                        Console.WriteLine("=== Registration ===");
+                        Console.Write("What is your name: ");
+                        string guestName = Console.ReadLine()!;
+                        Console.Write("What is your last name: ");
+                        string guestLastName = Console.ReadLine()!;
+                        Console.Write("What is your email: ");
+                        string guestEmail = Console.ReadLine()!;
+                        Console.Write("What is your phone number: ");
+                        string guestPhoneNumber = Console.ReadLine()!;
+                        Console.Write("What is your password: ");
+                        string guestPassword = Console.ReadLine()!;
+                        if (guestName == string.Empty || guestLastName == string.Empty || guestEmail == string.Empty || guestPhoneNumber == string.Empty ||
+                            guestPhoneNumber == string.Empty)
+                        {
+                            Console.WriteLine("Invalid input. Try again after 3 seconds. " +
+                                "You're gonna be redirected to the main page.");
+                            Thread.Sleep(3000);
+                            continue;
+                        }
+                        Console.WriteLine(await hotelGuestsService.RegisterGuest(guestName, guestLastName, guestEmail, guestPhoneNumber, guestPassword));
+                        Console.WriteLine("You're gonna be redirected to the main page after 4 seconds");
+                        Thread.Sleep(4000);
+                        continue;
+                    }
+                    else if (option == "3")
                     {
                         Console.WriteLine("Exiting the app...");
                         return;
                     }
                     else
                     {
-                        Console.WriteLine("Invallid option. Try again");
+                        Console.WriteLine("Invalid option. Try again after 3 seconds");
                         Thread.Sleep(3000);
                         continue;
                     }
@@ -146,7 +143,7 @@ namespace Luxor.View
                 catch (Exception ex)
                 {
                     Console.WriteLine($"{ex.Message}");
-                    Thread.Sleep(3000);
+                    Thread.Sleep(4000);
                     continue;
                 }
             }
@@ -226,22 +223,22 @@ namespace Luxor.View
                         Console.WriteLine(await employeesService.ShowEmployeesByName(name));
                         break;
                     case 9:
-                        Console.Write("Enter employee name: ");
-                        string employeeName = Console.ReadLine()!;
+                        Console.Write("Enter employee's first name: ");
+                        string employeeFirstName = Console.ReadLine()!;
+                        Console.Write("Enter employee's last name: ");
+                        string employeeLastName = Console.ReadLine()!;
                         Console.Write("Enter employee age: ");
                         int age = int.Parse(Console.ReadLine()!);
                         Console.Write("Enter employee position: ");
                         string position = Console.ReadLine()!;
                         Console.Write("Enter employee salary: ");
                         decimal salary = decimal.Parse(Console.ReadLine()!);
-                        employeesService.AddEmployee(employeeName, age, position, salary);
+                        Console.WriteLine(await employeesService.AddEmployee(employeeFirstName, employeeLastName, age, position, salary));
                         break;
                     case 10:
                         Console.Write("Enter employee name: ");
                         string employeeNameToRemove = Console.ReadLine()!;
-                        Console.Write("Enter employee ID: ");
-                        int employeeIdToRemove = int.Parse(Console.ReadLine()!);
-                        Console.WriteLine(await employeesService.RemoveEmployee(employeeNameToRemove, employeeIdToRemove));
+                        Console.WriteLine(await employeesService.RemoveEmployee(employeeNameToRemove));
                         break;
                     case 11:
                         Console.WriteLine(await bookingsService.ShowAllBookings());
@@ -297,7 +294,7 @@ namespace Luxor.View
                     case 22:
                         Console.Write("Enter booking ID: ");
                         int bookingIdForRemoveService = int.Parse(Console.ReadLine()!);
-                        Console.Write("Enter service ID: ");
+                        Console.Write("Enter service name: ");
                         string serviceNameToRemove = Console.ReadLine()!;
                         Console.WriteLine(await servicesHotelService.RemoveServiceFromBooking(bookingIdForRemoveService, serviceNameToRemove));
                         break;
@@ -353,8 +350,11 @@ namespace Luxor.View
                 Console.WriteLine("8. Make booking");
                 Console.WriteLine("9. Cancel booking");
                 Console.WriteLine("10. Show all my feedbacks");
-                Console.WriteLine("11. Logout");
-                int option = int.Parse(Console.ReadLine());
+                Console.WriteLine("11. See information about me");
+                Console.WriteLine("12. Update my information");
+                Console.WriteLine("13. Logout");
+                Console.Write("Choose option: ");
+                int option = int.Parse(Console.ReadLine()!);
                 switch (option)
                 {
                     case 1:
@@ -379,7 +379,7 @@ namespace Luxor.View
                         string comment = Console.ReadLine()!;
                         Console.Write("Enter rating: ");
                         int rating = int.Parse(Console.ReadLine()!);
-                        await guestFeedbacksService.LeaveFeedback(bookingId, guestId, comment, rating);
+                        Console.WriteLine(await guestFeedbacksService.LeaveFeedback(bookingId, guestId, comment, rating));
                         break;
                     case 7:
                         Console.Write("Enter feedback ID: ");
@@ -395,24 +395,35 @@ namespace Luxor.View
                         DateTime accommodationDate = DateTime.Parse(Console.ReadLine()!);
                         Console.Write("Enter leaving date (yyyy-mm-dd): ");
                         DateTime leavingDate = DateTime.Parse(Console.ReadLine()!);
-                        Console.Write("Enter amount: ");
-                        decimal amount = decimal.Parse(Console.ReadLine()!);
                         Console.Write("Enter payment method: ");
                         string paymentMethod = Console.ReadLine()!;
-                        Console.Write("Enter booking status: ");
-                        string status = Console.ReadLine()!;
-                        bool tryStatus = Enum.TryParse(status, out Status parsedStatus);
-                        await guestBookingsService.AddBooking(guestId, roomId, accommodationDate, leavingDate, amount, paymentMethod, parsedStatus);
+                        await guestBookingsService.AddBooking(guestId, roomNumber, accommodationDate, leavingDate, paymentMethod);
                         break;
                     case 9:
                         Console.Write("Enter booking ID: ");
                         int bookingIdToCancel = int.Parse(Console.ReadLine()!);
-                        await guestBookingsService.DeleteBooking(bookingIdToCancel);
+                        await guestBookingsService.DeleteBooking(guestId,bookingIdToCancel);
                         break;
                     case 10:
                         Console.WriteLine(await guestFeedbacksService.ShowAllFeedbacksForBookingsForGuest(guestId));
                         break;
                     case 11:
+                        Console.WriteLine(await guestService.SeeInformationAboutGuest(guestId));
+                        break;
+                    case 12:
+                        Console.Write("Enter new first name: ");
+                        string firstName = Console.ReadLine()!;
+                        Console.Write("Enter new last name: ");
+                        string lastName = Console.ReadLine()!;
+                        Console.Write("Enter new email: ");
+                        string email = Console.ReadLine()!;
+                        Console.Write("Enter new phone number: ");
+                        string phoneNumber = Console.ReadLine()!;
+                        Console.Write("Enter new password: ");
+                        string password = Console.ReadLine()!;
+                        Console.WriteLine(await guestService.UpdateInfoForGuest(guestId,firstName,lastName,email,phoneNumber,password));
+                        break;
+                    case 13:
                         Console.WriteLine("Logout...");
                         return;
                     default:

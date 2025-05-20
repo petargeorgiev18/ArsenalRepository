@@ -55,6 +55,7 @@ namespace Luxor.Core.Services.AdminServices
         }
         public async Task<string> AddRoom(string roomNumber, string description, decimal price, int roomTypeId)
         {
+            StringBuilder sb = new StringBuilder();
             var room = new Room
             {
                 RoomNumber = roomNumber,
@@ -63,20 +64,30 @@ namespace Luxor.Core.Services.AdminServices
                 IsAvailable = true,
                 RoomTypeId = roomTypeId
             };
-            context.Rooms.Add(room);
-            await context.SaveChangesAsync();
-            return $"Room {room.RoomNumber} added successfully.";
+            var existingRoom = context.Rooms.FirstOrDefault(r => r.RoomNumber == roomNumber);
+            if (existingRoom == null)
+            {
+                context.Rooms.Add(room);
+                await context.SaveChangesAsync();
+                sb.AppendLine($"Room {room.RoomNumber} added successfully.");
+                return sb.ToString();
+            }
+            sb.AppendLine($"There is existing room with number {roomNumber}");
+            return sb.ToString();
         }
         public async Task<string> RemoveRoom(int roomId)
         {
-            var room = await context.Rooms.FindAsync(roomId);
+            StringBuilder sb = new StringBuilder();
+            var room = await context.Rooms.FirstOrDefaultAsync(r=>r.RoomId==roomId);
             if (room == null)
             {
-                return "Room not found.";
+                sb.AppendLine("Room not found.");
+                return sb.ToString();
             }
             context.Rooms.Remove(room);
             await context.SaveChangesAsync();
-            return $"Room {room.RoomNumber} removed successfully.";
+            sb.AppendLine($"Room {room.RoomNumber} removed successfully.");
+            return sb.ToString();
         }
     }
 }

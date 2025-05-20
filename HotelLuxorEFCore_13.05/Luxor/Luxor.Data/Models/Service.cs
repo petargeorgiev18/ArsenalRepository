@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static Luxor.Common.EntityClassesValidation.Service;
 
 namespace Luxor.Data.Models
 {
@@ -7,8 +8,10 @@ namespace Luxor.Data.Models
         [Key]
         public int ServiceId { get; set; }
         [Required]
+        [MaxLength(ServiceNameMaxLength)]
         public string ServiceName { get; set; } = string.Empty;
         [Required]
+        [MaxLength(ServiceDescriptionMaxLength)]
         public string Description { get; set; } = string.Empty;
         [Required]
         public decimal Price { get; set; }

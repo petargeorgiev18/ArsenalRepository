@@ -23,7 +23,7 @@ namespace Luxor.Core.Services.AdminServices
             Console.WriteLine("All employees:");
             foreach (var employee in allEmployees)
             {
-                sb.AppendLine($"ID: {employee.EmployeeId}, Name: {employee.Name}, " +
+                sb.AppendLine($"ID: {employee.EmployeeId}, FullName: {employee.FirstName} {employee.LastName}, " +
                     $"Salary: {employee.Salary}");
             }
             return sb.ToString();
@@ -37,7 +37,7 @@ namespace Luxor.Core.Services.AdminServices
             Console.WriteLine($"Employee with ID {employeeId}:");
             if (employee != null)
             {
-                sb.AppendLine($"ID: {employee.EmployeeId}, Name: {employee.Name}, " +
+                sb.AppendLine($"ID: {employee.EmployeeId}, FullName: {employee.FirstName} {employee.LastName}, " +
                     $"Salary: {employee.Salary}");
             }
             else
@@ -48,42 +48,56 @@ namespace Luxor.Core.Services.AdminServices
         }
         public async Task<string> ShowEmployeesByName(string name)
         {
+            string[] names = name.Split(' ');
             var employees = await context.Employees
-                .Where(e => e.Name.Contains(name))
+                .Where(e => e.FirstName == names[0] && e.LastName == names[1])
                 .ToListAsync();
             StringBuilder sb = new StringBuilder();
             Console.WriteLine($"Employees with name {name}:");
             foreach (var employee in employees)
             {
-                sb.AppendLine($"ID: {employee.EmployeeId}, Name: {employee.Name}, " +
+                sb.AppendLine($"ID: {employee.EmployeeId}, FullName: {employee.FirstName} {employee.LastName}, " +
                     $"Salary: {employee.Salary}");
             }
             return sb.ToString();
         }
-        public void AddEmployee(string name, int age, string position, decimal salary)
+        public async Task<string> AddEmployee(string firstName, string lastName, int age, string position, decimal salary)
         {
+            StringBuilder sb = new StringBuilder();
             var employee = new Employee
             {
-                Name = name,
+                FirstName = firstName,
+                LastName = lastName,
                 Age = age,
                 Position = position,
                 Salary = salary,
                 HireDate = DateTime.UtcNow
             };
-            context.Employees.Add(employee);
-            context.SaveChanges();
+            var existingEmployee = await context.Employees
+                .FirstOrDefaultAsync(e => e.FirstName == firstName && e.LastName == lastName 
+                && e.Age == age && e.Position == position && e.Salary == salary);
+            if (existingEmployee != null)
+            {
+                sb.AppendLine("Employee already exists.");
+                return sb.ToString();
+            }
+            await context.Employees.AddAsync(employee);
+            await context.SaveChangesAsync();
+            sb.AppendLine($"Employee {firstName} {lastName} successfully added.");
+            return sb.ToString();
         }
-        public async Task<string> RemoveEmployee(string name, int id)
+        public async Task<string> RemoveEmployee(string name)
         {
+            string[] names = name.Split(' ');
             StringBuilder sb = new StringBuilder();
             var employee = context.Employees
-                .Where(e => e.Name == name && e.EmployeeId == id)
+                .Where(e => e.FirstName == names[0] && e.LastName == names[1])
                 .FirstOrDefault();
             if (employee != null)
             {
                 context.Employees.Remove(employee);
                 await context.SaveChangesAsync();
-                sb.AppendLine($"Employee with ID {id} and name {name} successfully removed.");
+                sb.AppendLine($"Employee with name {name} successfully removed.");
             }
             else
             {

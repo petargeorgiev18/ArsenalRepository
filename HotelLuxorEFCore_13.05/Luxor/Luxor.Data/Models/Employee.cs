@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static Luxor.Common.EntityClassesValidation.Employee;
 
 namespace Luxor.Data.Models
 {
@@ -7,10 +8,15 @@ namespace Luxor.Data.Models
         [Key]
         public int EmployeeId { get; set; }
         [Required]
-        public string Name { get; set; } = string.Empty;
+        [MaxLength(EmployeeFirstNameMaxLength)]
+        public string FirstName { get; set; } = string.Empty;
+        [Required]
+        [MaxLength(EmployeeLastNameMaxLength)]
+        public string LastName { get; set; } = string.Empty;
         [Required]
         public int Age { get; set; }
         [Required]
+        [MaxLength(EmployeePositionMaxLength)]
         public string Position { get; set; } = string.Empty;
         [Required]
         public decimal Salary { get; set; }

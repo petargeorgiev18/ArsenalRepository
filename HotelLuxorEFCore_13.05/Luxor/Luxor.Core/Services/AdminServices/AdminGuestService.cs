@@ -19,7 +19,7 @@ namespace Luxor.Core.Services.AdminServices
         }
         public async Task<string> ShowAllGuests()
         {
-            var allGuests = await context.Guests.ToListAsync();
+            var allGuests = await context.Guests.Where(g=>g.GuestId!=1).ToListAsync();
             StringBuilder sb = new StringBuilder();
             Console.WriteLine("All guests:");
             foreach (var guest in allGuests)
@@ -40,7 +40,7 @@ namespace Luxor.Core.Services.AdminServices
                 Console.WriteLine($"Guest with last name {name}:");
                 foreach (var guest in guests)
                 {
-                    sb.AppendLine($"ID: {guest.GuestId}, Name: {guest.LastName}, Email: {guest.Email}, " +
+                    sb.AppendLine($"ID: {guest.GuestId}, FullName: {guest.FirstName} {guest.LastName}, Email: {guest.Email}, " +
                         $"PhoneNumber: {guest.PhoneNumber}");
                 }
             }
@@ -64,7 +64,7 @@ namespace Luxor.Core.Services.AdminServices
             Console.WriteLine($"Guest with full name {firstName} {lastName}:");
             foreach (var guest in guests)
             {
-                sb.AppendLine($"ID: {guest.GuestId}, Name: {guest.LastName}, Email: {guest.Email}, " +
+                sb.AppendLine($"ID: {guest.GuestId}, FullName: {guest.FirstName} {guest.LastName}, Email: {guest.Email}, " +
                     $"PhoneNumber: {guest.PhoneNumber}");
             }
             return sb.ToString();
@@ -122,9 +122,10 @@ namespace Luxor.Core.Services.AdminServices
             }
             return null;
         }
-        public async Task<string> RegistrateGuest(string firstName, string lastName, string email, string phoneNumber,
+        public async Task<string> RegisterGuest(string firstName, string lastName, string email, string phoneNumber,
             string password)
         {
+            StringBuilder sb = new StringBuilder();
             var guest = new Guest
             {
                 FirstName = firstName,
@@ -133,9 +134,18 @@ namespace Luxor.Core.Services.AdminServices
                 PhoneNumber = phoneNumber,
                 Password = password
             };
+            var existingGuest = await context.Guests
+                .FirstOrDefaultAsync(g => g.FirstName == firstName && g.LastName == lastName 
+                && g.Email == email && g.PhoneNumber == phoneNumber && g.Password == password);
+            if (existingGuest != null)
+            {
+                sb.AppendLine("Guest already exists.");
+                return sb.ToString();
+            }
             await context.Guests.AddAsync(guest);
             await context.SaveChangesAsync();
-            return "Guest successfully registered.";
+            sb.AppendLine("Guest successfully registered.");
+            return sb.ToString();
         }
     }
 }
