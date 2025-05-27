@@ -1,0 +1,23 @@
+Line 1: namespace ReadingFileWithStream
+Line 2: {
+Line 3:     internal class Program
+Line 4:     {
+Line 5:         static void Main(string[] args)
+Line 6:         {
+Line 7:             using(StreamReader reader = new StreamReader("../../../Program.cs"))
+Line 8:             {
+Line 9:                 using(StreamWriter writer = new StreamWriter("../../../Program.txt"))
+Line 10:                 {
+Line 11:                     string line = reader.ReadLine();
+Line 12:                     int lineNumber = 1;
+Line 13:                     while (line != null)
+Line 14:                     {
+Line 15:                         writer.WriteLine($"Line {lineNumber}: {line}");
+Line 16:                         lineNumber++;
+Line 17:                         line = reader.ReadLine();
+Line 18:                     }
+Line 19:                 }
+Line 20:             }
+Line 21:         }
+Line 22:     }
+Line 23: }
