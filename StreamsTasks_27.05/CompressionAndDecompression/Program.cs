@@ -16,9 +16,9 @@ namespace CompressionAndDecompression
                     }
                 }
             }
-            using (FileStream decompressedStream = new FileStream("../../../decompressedTextFile.txt", FileMode.Create, FileAccess.Write))
+            using (FileStream decompressedStream = new FileStream("../../../decompressedTextFile.txt", FileMode.Create))
             {
-                using (FileStream compressedStream = new FileStream("../../../compressedTextFile.gz", FileMode.Open, FileAccess.Read))
+                using (FileStream compressedStream = new FileStream("../../../compressedTextFile.gz", FileMode.Open))
                 {
                     using (GZipStream decompressor = new GZipStream(compressedStream, CompressionMode.Decompress))
                     {

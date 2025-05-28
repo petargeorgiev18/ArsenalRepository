@@ -11,10 +11,10 @@
                     string line = reader.ReadLine();
                     while (line != null)
                     {
-                        char[] lineReversed = line.Reverse().ToArray();
-                        for (int i = 0; i < lineReversed.Length; i++)
+                        //char[] lineReversed = line.Reverse().ToArray();
+                        for (int i = line.Length - 1; i >= 0; i--)
                         {
-                            writer.Write($"{lineReversed[i]}");
+                            writer.Write($"{line[i]}");
                         }
                         writer.WriteLine();
                         line = reader.ReadLine();
