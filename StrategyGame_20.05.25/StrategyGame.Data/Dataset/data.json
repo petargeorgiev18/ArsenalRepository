@@ -1,0 +1,72 @@
+{
+    "Factions": [
+        {
+            "Name": "Humans",
+            "Description": "Balanced race with strong economy."
+        },
+        {
+            "Name": "Orcs",
+            "Description": "Strong melee units, weak defenses."
+        }
+    ],
+    "Buildings": [
+        {
+            "Name": "Barracks",
+            "Description": "Trains infantry.",
+            "BuildTime": 60,
+            "FactionId": 1
+        },
+        {
+            "Name": "Farm",
+            "Description": "Produces food.",
+            "BuildTime": 30,
+            "FactionId": 1
+        }
+    ],
+    "Units": [
+        {
+            "Name": "Swordsman",
+            "AttackPower": 10,
+            "DefensePower": 5,
+            "TrainingTime": 45,
+            "FactionId": 1
+        },
+        {
+            "Name": "Archer",
+            "AttackPower": 7,
+            "DefensePower": 3,
+            "TrainingTime": 30,
+            "FactionId": 1
+        }
+    ],
+    "Resources": [
+        {
+            "Name": "Gold",
+            "Description": "Used for building and training."
+        },
+        {
+            "Name": "Food",
+            "Description": "Required for units to survive."
+        }
+    ],
+    "Technologies": [
+        {
+            "Name": "Advanced Metallurgy",
+            "Description": "Increases attack by 10%",
+            "ResearchTime": 120
+        },
+        {
+            "Name": "Efficient Farming",
+            "Description": "Increases food production by 20%",
+            "ResearchTime": 90
+        }
+    ],
+    "Maps": [
+        {
+            "Name": "Valley of Kings",
+            "SizeX": 100,
+            "SizeY": 100,
+            "Description": "A balanced map with hills and forests."
+        }
+    ]
+}

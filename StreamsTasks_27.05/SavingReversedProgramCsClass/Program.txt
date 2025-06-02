@@ -1,4 +1,3 @@
-;metsyS gnisu
 ssalCsCmargorPdesreveRgnivaS ecapseman
 {
 margorP ssalc lanretni    
@@ -12,10 +11,10 @@ margorP ssalc lanretni
 ;)(eniLdaeR.redaer = enil gnirts                    
 )llun =! enil( elihw                    
 {                    
-;)(yarrAoT.)(esreveR.enil = desreveRenil ][rahc                        
-)++i ;htgneL.desreveRenil < i ;0 = i tni( rof                        
+;)(yarrAoT.)(esreveR.enil = desreveRenil ][rahc//                        
+)--i ;0 => i ;1- htgneL.enil = i tni( rof                        
 {                        
-;)"}]i[desreveRenil{"$(etirW.retirw                            
+;)"}]i[enil{"$(etirW.retirw                            
 }                        
 ;)(eniLetirW.retirw                        
 ;)(eniLdaeR.redaer = enil                        
