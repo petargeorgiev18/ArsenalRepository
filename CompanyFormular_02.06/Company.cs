@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyFormular_02._06
+﻿namespace CompanyFormular_02._06
 {
     public class Company
     {
@@ -56,6 +54,11 @@ namespace CompanyFormular_02._06
             Name = name;
             EstablishmentDate = establishmentDate;
             Bulstat = bulstat;
+        }
+
+        public virtual double CalculateProfit()
+        {
+            return 0.0; 
         }
     }
 }

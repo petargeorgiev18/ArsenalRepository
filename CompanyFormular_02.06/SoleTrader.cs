@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyFormular_02._06
+﻿namespace CompanyFormular_02._06
 {
     public class SoleTrader : Company
     {
@@ -56,10 +54,10 @@ namespace CompanyFormular_02._06
             CurrentCapital = currentCapital;
         }
 
-        public double CalculateIncomeTax()
+        public override double CalculateProfit()
         {
             double profit = CurrentCapital - InitialCapital;
-            return profit > 0 ? profit * 0.15 : 0;
+            return profit > 0 ? profit * 0.85 : 0;
         }
     }
 }

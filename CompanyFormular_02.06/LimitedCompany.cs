@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyFormular_02._06
+﻿namespace CompanyFormular_02._06
 {
     public class LimitedCompany : Company
     {
@@ -41,10 +39,10 @@ namespace CompanyFormular_02._06
             CurrentCapital = currentCapital;
         }
 
-        public double CalculateIncomeTax()
+        public override double CalculateProfit()
         {
-            double profit = CurrentCapital - InitialCapital;
-            return profit > 0 ? profit * 0.10 : 0;
+            double profit = CurrentCapital - 2;
+            return profit > 0 ? profit * 0.90 : 0;
         }
     }
 }
