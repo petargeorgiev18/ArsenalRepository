@@ -1,0 +1,122 @@
+#header1{
+    font-size: 32px;
+    color: blue;
+}
+#header2{
+    font-weight: bold;
+    text-align: center;
+}
+
+.redparagraph{
+    color: red;
+}
+
+.line-height{
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+
+.letter-spacing{
+    letter-spacing: 2px;
+}
+
+.italic{
+    font-style: italic;
+}
+
+#yellow-background{
+    background-color: yellow;
+}
+
+.div_lightgray{
+    padding: 20px;
+    background-color: lightgray;
+}
+
+.div_margin{
+    margin: 30px;
+    border: 2px solid black;
+}
+
+#link{
+    color: green;
+    text-decoration: none;
+}
+
+#button{
+    background-color: blue;
+    color: white;
+}
+
+.item-padding-10px{
+    padding: 10px;
+}
+
+.list-type-square-item{
+    list-style-type: square;
+}
+
+.font-size-18px-item{
+    font-size: 18px;
+}
+
+.item-margin-left{
+    margin-left: 20px;
+}
+
+.font-weight-bold-item{
+    font-weight: bold;
+}
+
+.ordered-list-purple-item{
+    color:purple;
+}
+
+img{
+    width: 150px;
+    border-radius: 50%;
+}
+
+.header-row th:nth-child(1){
+    background-color: gray;
+}
+
+.header-row th:nth-child(2){
+    padding: 10px;
+}
+
+.data-row td:nth-child(1){
+    border: 1px solid black;
+}
+
+.data-row td:nth-child(2){
+    text-align: center;
+}
+
+section{
+    background-color: lightblue;
+    padding: 20px;
+}
+
+article{
+    margin: 40px auto;
+    text-align: justify;
+}
+
+form{
+    margin-top: 20px;
+    padding: 10px;
+}
+
+input[type="text"]{
+    border: 1px solid blue;
+}
+
+#footer{
+    font-size: 14px;
+    text-align: center;
+}
