@@ -1,0 +1,28 @@
+.dotted_border{
+    border: 3px dotted blue;
+    border-radius: 15px;
+    padding: 8px;
+    width: fit-content;
+}
+
+.dashed_border{
+    border: 2px dashed red;
+    border-radius: 15px;
+    padding: 8px;
+    margin: 10px;
+    width: fit-content;
+}
+
+.solid_border{
+    border: 2px solid green;
+    border-radius: 5px;
+    padding: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 10px;
+    width: fit-content;
+}
+
+p{
+    text-align: center;
+}

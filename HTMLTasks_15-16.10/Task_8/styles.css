@@ -1,0 +1,35 @@
+h1 {
+    font-weight: bold;
+}
+
+form {
+    background-color: #f6ebeb;
+    width: fit-content;
+    padding: 20px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+label {
+    width: 100px;
+    font-weight: none;
+}
+
+input[type="text"],
+select {
+    width: 250px;
+    padding: 5px;
+}
+
+select{
+    background-color: white;
+}
+
+input[type="submit"]{
+    padding: 8px 25px;
+    border-radius: 3px;
+}

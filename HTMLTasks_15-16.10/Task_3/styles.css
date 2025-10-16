@@ -1,0 +1,8 @@
+th{
+    font-weight: bold;
+}
+
+.subtotal, .tax, .grand-total{
+    font-weight: bold;
+    text-align: center;
+}

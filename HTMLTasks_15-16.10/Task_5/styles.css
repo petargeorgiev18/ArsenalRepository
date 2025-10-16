@@ -1,0 +1,22 @@
+.paragraphs p{
+    border-width: 5px;
+    border-style: solid;
+    text-align: center;
+    width: 240px;
+    padding: 5px;
+    border-radius: 15px;
+    font-size: larger;
+    background-color: grey;
+}
+
+.paragraphs > .red_element{
+    border-color: rgb(246, 21, 21);
+}
+
+.paragraphs > .green_element{
+    border-color: green;
+}
+
+.paragraphs > .blue_element{
+    border-color: blue;
+}
