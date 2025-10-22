@@ -1,0 +1,15 @@
+.inputFields label{
+    display: block;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.choices label{
+    display: block;
+    margin-bottom: 0;
+}
+
+.choices{
+    margin-left: 40px;
+    margin-bottom: 30px;
+}

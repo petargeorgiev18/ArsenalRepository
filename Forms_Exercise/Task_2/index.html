@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <div class="header">
+            <p>*First time playing Escape Room?</p>
+            <select name="firstTime" value="Select an option">
+                <option value="" disabled selected>Select an option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+        <div class="playedGameFieldSet">
+            <fieldset>
+                *Which game you played?
+                <label>
+                    <input type="checkbox" name="playedGame" value="Exodus">Exodus
+                </label>
+                <label>
+                    <input type="checkbox" name="playedGame" value="Alcatraz">Alcatraz
+                </label>
+                <label>
+                    <input type="checkbox" name="playedGame" value="Aokigahara">Aokigahara
+                </label>
+                <label>
+                    <input type="checkbox" name="playedGame" value="Mausoleum">Mausoleum
+                </label>
+                <label>
+                    <input type="checkbox" name="playedGame" value="Castiglione">Castiglione
+                </label>
+            </fieldset>
+        </div>
+        <div class="reccommendation">
+            <fieldset>
+                Will you reccomend the game to your friends?
+                <label>
+                    <input type="radio" name="recommend" value="Yes"> Yes
+                </label>
+                <label>
+                    <input type="radio" name="recommend" value="Maybe"> Maybe
+                </label>
+                <label>
+                    <input type="radio" name="recommend" value="No"> No
+                </label>
+            </fieldset>
+        </div>
+        <div class="feedback">
+            <fieldset>
+                <h1>Any comments or suggestions?</h1>
+                <textarea name="comments" placeholder="Enter your comment here..."></textarea>
+                <input type="submit" value="Submit">
+            </fieldset>
+        </div>
+    </form>
+</body>
+
+</html>

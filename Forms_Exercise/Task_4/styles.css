@@ -1,0 +1,75 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom right, rgb(175, 175, 204), rgb(181, 181, 234))
+}
+
+form {
+    display: flex;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    flex-direction: column;
+    max-width: 600px;
+    width: 100%;
+    gap: 20px;
+}
+
+input[type="submit"] {
+    display: block;
+    margin: 0 auto;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: 1em;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #4b6cb7;
+    box-shadow: 0 0 8px rgba(75, 108, 183, 0.3);
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    background-color: #4b6cb7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+input[type="submit"]:hover {
+    background-color: #3a54a3;
+    transform: scale(1.05);
+}
+
+fieldset {
+    padding: 20px;
+}
+
+.type-card label {
+    display: block;
+}

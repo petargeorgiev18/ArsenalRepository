@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <div>
+            <h4>Вашите данни</h4>
+            <label for="name">Име: <input type="text" name="name" required></label>
+            <label for="email">Имейл: <input type="text" name="email" required></label>
+        </div>
+        <div class="choose_type_pizza">
+            <h4>Изберете пица</h4>
+            <label for="margarita">
+                <input id="margarita" type="radio" name="type_pizza" value=8> Маргарита (8 лв)
+            </label>
+            <label for="peperoni">
+                <input id="peperoni" type="radio" name="type_pizza" value=10> Пеперони (10 лв)
+            </label>
+            <label for="vegetarianska">
+                <input id="vegetarianska" type="radio" name="type_pizza" value=9> Вегетарианска (9 лв)
+            </label>
+        </div>
+        <div class="pizza_size">
+            <h4>Размер на пицата</h4>
+            <select id="pizza_size">
+                <option value=0>Малка (+0 лв)</option>
+                <option value=2>Средна (+2 лв)</option>
+                <option value=4>Малка (+4 лв)</option>
+            </select>
+        </div>
+        <div class="count_pizzas">
+            <h4>Брой пици</h4>
+            <label for="quantity">Quantity of pizzas:</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="10" step="1" placeholder="1">
+        </div>
+        <input type="submit" value="Изчисли цена" onclick="getPrice(event)">
+    </form>
+    <script src="scripts.js"></script>
+</body>
+
+</html>

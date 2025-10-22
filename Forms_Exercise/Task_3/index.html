@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <div class="details">
+            <fieldset>
+                <legend>Your details</legend>
+                <ol type="1">
+                    <li>
+                        Name
+                        <input type="text" placeholder="First and last name" name="names">
+                    </li>
+                    <li>
+                        Email
+                        <input type="text" placeholder="example@domain.com" name="email">
+                    </li>
+                    <li>
+                        Phone
+                        <input type="text" placeholder="Eg. +447500000000" name="phone">
+                    </li>
+                </ol>
+            </fieldset>
+        </div>
+        <div class="delivery_address">
+            <fieldset>
+                <legend>Delivery address</legend>
+                <ol type="1">
+                    <li>
+                        <label for="address">Address</label>
+                        <textarea name="address" id="address"></textarea>
+                    </li>
+                    <li>
+                        Post code
+                        <input type="text" name="post_code">
+                    </li>
+                    <li>
+                        Country
+                        <input type="text" name="country">
+                    </li>
+                </ol>
+            </fieldset>
+        </div>
+        <div class="card_details">
+            <fieldset>
+                <legend>Card details</legend>
+                <ol type="1">
+                    <li>
+                        <fieldset>
+                            <legend>Card type</legend>
+                            <ol type="1">
+                                <li>
+                                    <input type="radio" name="type_card" value="VISA">VISA
+                                </li>
+                                <li>
+                                    <input type="radio" name="type_card" value="AmEx">AmEx
+                                </li>
+                                <li>
+                                    <input type="radio" name="type_card" value="Mastercard">Mastercard
+                                </li>
+                            </ol>
+                        </fieldset>
+                    </li>
+                    <li>
+                        <label for="card_number">
+                            Card number
+                            <input type="text" name="card_number">
+                        </label>
+                    </li>
+                    <li>
+                        <label for="security_code">
+                            Security code
+                            <input type="text" name="security_code">
+                        </label>
+                    </li>
+                    <li>
+                        <label for="name_on_card">
+                            Name on card
+                            <input type="text" name="name_on_card" placeholder="Exact name as on the card">
+                        </label>
+                    </li>
+                </ol>
+            </fieldset>
+            <fieldset>
+                <input type="submit" value="Buy it!">
+            </fieldset>
+        </div>
+    </form>
+</body>
+</html>

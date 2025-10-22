@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <div class="details">
+            <fieldset>
+                <legend>Your details</legend>
+
+                Name
+                <input type="text" placeholder="First and last name" name="names">
+
+                Email
+                <input type="text" placeholder="example@domain.com" name="email">
+
+                Phone
+                <input type="text" placeholder="Eg. +447500000000" name="phone">
+
+            </fieldset>
+        </div>
+        <div class="delivery_address">
+            <fieldset>
+                <legend>Delivery address</legend>
+
+                <label for="address">Address</label>
+                <textarea name="address" id="address"></textarea>
+
+                Post code
+                <input type="text" name="post_code">
+
+                Country
+                <input type="text" name="country">
+
+            </fieldset>
+        </div>
+        <div class="card_details">
+            <fieldset>
+                <legend>Card details</legend>
+
+                <fieldset class="type-card">
+                    <legend>Card type</legend>
+                    <label>
+                        <input type="radio" name="type_card" value="VISA">VISA
+                    </label>
+                    <label>
+                        <input type="radio" name="type_card" value="AmEx">AmEx
+                    </label>
+                    <label>
+                        <input type="radio" name="type_card" value="Mastercard">Mastercard
+                    </label>
+                </fieldset>
+
+                <label for="card_number">
+                    Card number
+                    <input type="text" name="card_number">
+                </label>
+
+                <label for="security_code">
+                    Security code
+                    <input type="text" name="security_code">
+                </label>
+
+                <label for="name_on_card">
+                    Name on card
+                    <input type="text" name="name_on_card" placeholder="Exact name as on the card">
+                </label>
+
+            </fieldset>
+            <fieldset>
+                <input type="submit" value="Buy it!">
+            </fieldset>
+        </div>
+    </form>
+</body>
+
+</html>

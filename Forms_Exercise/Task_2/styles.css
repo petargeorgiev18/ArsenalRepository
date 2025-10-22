@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+}
+
+.playedGameFieldSet label:nth-child(1) {
+    padding-top: 50px;
+}
+
+.playedGameFieldSet label {
+    display: block;
+    margin-left: 50px;
+}
+
+.reccomendation label {
+    display: block;
+    margin-left: 50px;
+}
+
+.reccommendation label:nth-child(1) {
+    margin-top: 30px;
+}
+
+.feedback fieldset{
+    display: block;
+}
+
+.feedback textarea,
+.feedback input[type="submit"] {
+    display: block;
+    margin-top: 10px;    
+    box-sizing: border-box;
+}
+
+.feedback textarea{
+    margin-bottom: 20px;
+}
