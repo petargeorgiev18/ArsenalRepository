@@ -1,0 +1,45 @@
+﻿@model MoviesWebApp.ViewModels.HomeIndexViewModel
+
+<section class="page-section portfolio" id="movies">
+    <div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Movies</h2>
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-film"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <div class="row justify-content-center">
+            @foreach (var movie in Model.Movies.Take(3))
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@movie.ImageUrl" class="card-img-top" style="height: 600px; object-fit: cover;" alt="@movie.Title">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@movie.Title</h5>
+                            <p class="card-text">@movie.Director (@movie.Year)</p>
+                            <p class="text-muted">@movie.Genre</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<div class="container mt-5" id="actors">
+    <h3 class="text-center text-uppercase text-secondary mb-4">Actors</h3>
+    <div class="d-flex flex-wrap justify-content-center gap-4">
+        @foreach (var actor in Model.Actors.Take(5))
+        {
+            <div class="card text-center shadow-sm" style="width: 140px;">
+                <img src="@actor.ImageUrl" class="card-img-top rounded-circle mx-auto mt-3" style="width: 90px; height: 90px; object-fit: cover;" alt="@actor.Name">
+                <div class="card-body p-2">
+                    <h6 class="card-title mb-1">@actor.Name</h6>
+                    <p class="card-text mb-1"><small>Born: @actor.BirthYear</small></p>
+                    <p class="card-text mb-0"><small>@actor.BirthCountry</small></p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

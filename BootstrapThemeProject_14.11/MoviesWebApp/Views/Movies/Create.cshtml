@@ -1,0 +1,23 @@
+﻿@model MoviesData.Entities.Movie
+
+<h2>Добави филм</h2>
+
+<form asp-action="Create" method="post">
+	<div>
+		<label>Title</label>
+		<input asp-for="Title" />
+	</div>
+	<div>
+		<label>Director</label>
+		<input asp-for="Director" />
+	</div>
+	<div>
+		<label>Year</label>
+		<input asp-for="Year" type="number" />
+	</div>
+	<div>
+		<label>Genre</label>
+		<input asp-for="Genre" />
+	</div>
+	<button type="submit">Добави</button>
+</form>
