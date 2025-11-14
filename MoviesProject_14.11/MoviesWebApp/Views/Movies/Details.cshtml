@@ -1,0 +1,15 @@
+﻿@model MoviesData.Entities.Movie
+
+<h2>Детайли за филма</h2>
+
+<div class="card" style="width:18rem">
+	<div class="card-body">
+		<h5 class="card-title">@Model.Title</h5>
+		<h6 class="card-subtitle mb-2 text-muted">@Model.Director</h6>
+		<p class="card-text">
+			<strong>Година:</strong> @Model.Year <br />
+			<strong>Жанр:</strong> @Model.Genre
+		</p>
+		<a asp-action="Index" class="btn btn-secondary">Назад към всички филми</a>
+	</div>
+</div>
