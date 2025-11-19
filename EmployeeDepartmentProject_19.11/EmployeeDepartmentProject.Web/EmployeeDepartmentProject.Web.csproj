@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EmployeeDepartmentProject.Core\EmployeeDepartmentProject.Core.csproj" />
     <ProjectReference Include="..\EmployeeDepartmentProject.Data\EmployeeDepartmentProject.Data.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,25 @@
+﻿@model DepartmentFormViewModel
+
+<style>
+    form{
+        background-color: #e0d8b0
+    }
+</style>
+
+<h2>Create department</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-label w-100" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Code" class="form-label"></label>
+        <input asp-for="Code" class="form-label w-100" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

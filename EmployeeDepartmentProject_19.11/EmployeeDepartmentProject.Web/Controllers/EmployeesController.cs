@@ -1,108 +1,125 @@
-﻿using EmployeeDepartmentProject.Data;
+﻿using EmployeeDepartmentProject.Core.Interfaces;
 using EmployeeDepartmentProject.Data.Entities;
+using EmployeeDepartmentProject.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeDepartmentProject.Web.Controllers
 {
     public class EmployeesController : Controller
     {
-        private EmployeeDepartmentDbContext _context;
-        public EmployeesController(EmployeeDepartmentDbContext context)
+        private readonly IEmployeeService _employeeService;
+        private readonly IDepartmentService _departmentService;
+
+        public EmployeesController(
+            IEmployeeService employeeService,
+            IDepartmentService departmentService)
         {
-            _context = context;
+            _employeeService = employeeService;
+            _departmentService = departmentService;
         }
 
         // GET: Employees
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Employee> employees = await _context.Employees.ToListAsync();
+            List<Employee> employees = await _employeeService.GetAllAsync();
             return View(employees);
         }
 
-        // GET: Employees/Details/Id
+        // GET: Employees/Add
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Add()
         {
-            Employee? employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            EmployeeFormViewModel vm = new EmployeeFormViewModel
             {
-                return NotFound();
-            }
-            return View(employee);
+                DateOfBirth = DateTime.Today,
+                Departments = await _departmentService.GetAllAsync()
+            };
+
+            return View(vm);
         }
 
-        // GET: Employees/Create
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Employees/Create
+        // POST: Employees/Add
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create (Employee employee)
+        public async Task<IActionResult> Add(EmployeeFormViewModel vm)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(employee);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                vm.Departments = await _departmentService.GetAllAsync();
+                return View(vm);
             }
-            return View(employee);
+
+            Employee employee = new Employee
+            {
+                Name = vm.Name,
+                Email = vm.Email,
+                DateOfBirth = vm.DateOfBirth,
+                Salary = vm.Salary,
+                DepartmentId = vm.DepartmentId
+            };
+
+            await _employeeService.AddAsync(employee);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Employees/Edit/Id
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null) return NotFound();
-            Employee? employee = await _context.Employees.FindAsync(id);
-            if (employee == null) return NotFound();
-            ViewData["Departments"] = _context.Departments.ToList();
-            return View(employee);
+            var employee = await _employeeService.GetByIdAsync(id);
+            if (employee == null)
+                return NotFound();
+
+            EmployeeFormViewModel vm = new EmployeeFormViewModel
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                Email = employee.Email,
+                DateOfBirth = employee.DateOfBirth,
+                Salary = employee.Salary,
+                DepartmentId = employee.DepartmentId,
+                Departments = await _departmentService.GetAllAsync()
+            };
+
+            return View(vm);
         }
 
         // POST: Employees/Edit/Id
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Employee employee)
+        public async Task<IActionResult> Edit(int id, EmployeeFormViewModel vm)
         {
-            if (id != employee.Id) 
+            if (id != vm.Id)
                 return NotFound();
-            if (ModelState.IsValid)
-            {
-                _context.Update(employee);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["Departments"] = _context.Departments.ToList();
-            return View(employee);
-        }
 
-        // GET: Employees/Delete/Id
-        [HttpGet]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null) 
-                return NotFound();
-            Employee? employee = await _context.Employees
-                .Include(e => e.Department).FirstOrDefaultAsync(e => e.Id == id);
-            if (employee == null) 
-                return NotFound();
-            return View(employee);
+            if (!ModelState.IsValid)
+            {
+                vm.Departments = await _departmentService.GetAllAsync();
+                return View(vm);
+            }
+
+            Employee employee = new Employee
+            {
+                Id = vm.Id,
+                Name = vm.Name,
+                Email = vm.Email,
+                DateOfBirth = vm.DateOfBirth,
+                Salary = vm.Salary,
+                DepartmentId = vm.DepartmentId
+            };
+
+            await _employeeService.UpdateAsync(employee);
+
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Employees/Delete/Id
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            Employee? employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
+            await _employeeService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

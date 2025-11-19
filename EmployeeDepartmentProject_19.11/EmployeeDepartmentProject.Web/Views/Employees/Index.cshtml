@@ -1,34 +1,56 @@
 ﻿@model IEnumerable<Employee>
 
-@{
-    ViewData["Title"] = "Employees";
-}
+<h2>Employees:</h2>
 
-<h2>Employees</h2>
-<a class="btn btn-success mb-3" asp-action="Create">Add Employee</a>
-<table class="table table-striped">
-    <thead class="table-dark">
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Salary</th>
-            <th>Department</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var emp in Model)
-        {
+<style>
+    body {
+        background-color: lightblue;
+    }
+
+    th, td, tr {
+        border: 2px solid black;
+    }
+</style>
+
+<a class="btn btn-primary mb-3" asp-action="Add">Add Employee</a>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info">
+        There are no added employees.
+    </div>
+}
+else
+{
+    <table class="table table-bordered  table-striped">
+        <thead class="table">
             <tr>
-                <td>@emp.Name</td>
-                <td>@emp.Email</td>
-                <td>@emp.Salary</td>
-                <td>@emp.Department?.Name</td>
-                <td>
-                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@emp.Id">Edit</a>
-                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@emp.Id">Delete</a>
-                </td>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Salary</th>
+                <th>Department</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    <td>@emp.Name</td>
+                    <td>@emp.Email</td>
+                    <td>@emp.Salary</td>
+                    <td>@emp.Department?.Name</td>
+                    <td>
+                        <a class="btn btn-success btn-sm" asp-action="Edit" asp-route-id="@emp.Id">Edit</a>
+                        <form asp-action="Delete" asp-route-id="@emp.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure?');">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

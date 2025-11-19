@@ -1,3 +1,5 @@
+using EmployeeDepartmentProject.Core.Implementations;
+using EmployeeDepartmentProject.Core.Interfaces;
 using EmployeeDepartmentProject.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,9 @@ namespace EmployeeDepartmentProject.Web
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<EmployeeDepartmentDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
             var app = builder.Build();
 
@@ -34,6 +39,12 @@ namespace EmployeeDepartmentProject.Web
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<EmployeeDepartmentDbContext>();
+                DbInitializer.InitializeAsync(context);
+            }
 
             app.Run();
         }
