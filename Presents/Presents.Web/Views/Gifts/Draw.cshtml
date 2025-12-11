@@ -1,0 +1,46 @@
+﻿@using Presents.Data.Entities
+@model Gift;
+
+@{
+    ViewData["Title"] = "Draw Result";
+}
+
+<div class="container mt-5 text-center">
+    <h1 class="display-4 mb-4">🎁 Твоят подарък е избран!</h1>
+
+    <div class="card mx-auto" style="width: 22rem;">
+        <img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Name"
+             onerror="this.src='https://via.placeholder.com/350x200?text=No+Image';">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">@Model.Description</p>
+            <p class="card-text"><strong>Категория:</strong> @ViewBag.CategoryName </p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-controller="Gifts" asp-action="Index" class="btn btn-primary btn-lg">🔙 Назад към всички подаръци</a>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #b30000;
+        color: white;
+    }
+
+    .card {
+        background-color: #fff;
+        color: black;
+        border: 2px solid #228B22;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .card-img-top {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        max-height: 200px;
+        object-fit: cover;
+    }
+</style>

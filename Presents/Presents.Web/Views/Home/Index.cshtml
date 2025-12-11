@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #b30000 !important; 
+        color: white;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .text-center h1 {
+        text-shadow: 3px 3px 6px black;
+    }
+
+    .btn-primary {
+        background-color: #228B22 !important;
+        border-color: #1f7a1f !important;
+    }
+
+    .btn-success {
+        background-color: #d4af37 !important;
+        border-color: #c0a030 !important;
+        color: black !important;
+        font-weight: bold;
+    }
+
+    .snowflake {
+        position: fixed;
+        top: -10px;
+        color: white;
+        font-size: 20px;
+        animation: snow 10s linear infinite;
+        z-index: 9999;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        // Falling snow
+        for (let i = 0; i < 18; i++) {
+            let snow = document.createElement("div");
+            snow.className = "snowflake";
+            snow.innerHTML = "❄";
+            snow.style.left = Math.random() * 100 + "vw";
+            snow.style.fontSize = (10 + Math.random() * 20) + "px";
+            snow.style.animationDuration = (6 + Math.random() * 10) + "s";
+            snow.style.animationDelay = Math.random() * 5 + "s";
+            document.body.appendChild(snow);
+        }
+    </script>
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Избери действие:</p>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-controller="Gifts" asp-action="Create" class="btn btn-primary btn-lg m-2">
+        ➕ Добави подарък
+    </a>
+
+    <a asp-controller="Gifts" asp-action="Draw" class="btn btn-success btn-lg m-2">
+        🎲 Тегли случаен подарък
+    </a>
+</div>

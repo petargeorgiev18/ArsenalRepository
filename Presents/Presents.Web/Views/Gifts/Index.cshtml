@@ -1,0 +1,48 @@
+﻿@model Presents.Web.Models.GiftIndexVM
+
+<h2 class="mt-4">Налични подаръци</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Име</th>
+            <th>Описание</th>
+            <th>Категория</th>
+            <th>Изображение</th>
+            <th>Статус</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var gift in Model.Gifts)
+        {
+            <tr>
+                <td>@gift.Name</td>
+                <td>@gift.Description</td>
+                <td>@gift.CategoryName</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(gift.ImageUrl))
+                    {
+                        <img src="@gift.ImageUrl" alt="@gift.Name" width="100" />
+                    }
+                </td>
+                <td>
+                    @if (gift.IsTaken)
+                    {
+                        <span class="badge bg-danger">Взет</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Свободен</span>
+                    }
+                </td>
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="id" value="@gift.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">Изтрий</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
