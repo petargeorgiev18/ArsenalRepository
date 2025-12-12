@@ -2,6 +2,34 @@
 
 <h2 class="mt-4">Налични подаръци</h2>
 
+<form method="get" asp-action="Index" class="mb-3">
+    <div class="row">
+        <div class="col-md-4">
+
+            <select class="form-select" name="categoryId" onchange="this.form.submit()">
+                <option value="">Всички категории</option>
+
+                @foreach (var cat in Model.Categories)
+                {
+                    bool isSelected =
+                    Model.CategoryId.HasValue &&
+                    Model.CategoryId.Value.ToString() == cat.Value;
+
+                    if (isSelected)
+                    {
+                        <option value="@cat.Value" selected>@cat.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@cat.Value">@cat.Text</option>
+                    }
+                }
+            </select>
+
+        </div>
+    </div>
+</form>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -14,35 +42,42 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var gift in Model.Gifts)
+        @if (!Model.Gifts.Any())
         {
-            <tr>
-                <td>@gift.Name</td>
-                <td>@gift.Description</td>
-                <td>@gift.CategoryName</td>
-                <td>
-                    @if (!string.IsNullOrEmpty(gift.ImageUrl))
-                    {
-                        <img src="@gift.ImageUrl" alt="@gift.Name" width="100" />
-                    }
-                </td>
-                <td>
-                    @if (gift.IsTaken)
-                    {
-                        <span class="badge bg-danger">Взет</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-success">Свободен</span>
-                    }
-                </td>
-                <td>
-                    <form asp-action="Delete" method="post">
-                        <input type="hidden" name="id" value="@gift.Id" />
-                        <button type="submit" class="btn btn-danger btn-sm">Изтрий</button>
-                    </form>
-                </td>
-            </tr>
+            <p class="text-center mt-4">Няма налични подаръци.</p>
+        }
+        else
+        {
+            @foreach (var gift in Model.Gifts)
+            {
+                <tr>
+                    <td>@gift.Name</td>
+                    <td>@gift.Description</td>
+                    <td>@gift.CategoryName</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(gift.ImageUrl))
+                        {
+                            <img src="@gift.ImageUrl" alt="@gift.Name" width="100" />
+                        }
+                    </td>
+                    <td>
+                        @if (gift.IsTaken)
+                        {
+                            <span class="badge bg-danger">Взет</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Свободен</span>
+                        }
+                    </td>
+                    <td>
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@gift.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Изтрий</button>
+                        </form>
+                    </td>
+                </tr>               
+            }
         }
     </tbody>
 </table>
